@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+body{
+  background-color: black;
+  color: #D9D9D9;
+}
+@theme{
+  --color-subtext: #9E9E9E;
+  --color-borderFromWhite: #666666;
+  --color-borderToWhite: #313131;
+  --color-borderToYellow: #FFC75E;
+  --color-background: #3737374D;
+}
+.gradientSpin {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* Important for glow blending */
+}
+
+.gradientSpin::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, #ffd700, #ff8c00, #986300, #ff8c00, #ffd700);
+  background-size: 200% 200%;
+  animation: gradSpin 4s linear infinite;
+  filter: blur(8px) brightness(1.5);
+  opacity: 0.7;
+  z-index: -1;
+}
+.graySpin {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* Important for glow blending */
+}
+
+.graySpin::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, #666666, #313131, #986300, #ff8c00, #ffd700);
+  background-size: 200% 200%;
+  animation: gradSpin 4s linear infinite;
+  filter: blur(8px) brightness(1.5);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+@keyframes gradSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.goldBorder
+{
+  @apply bg-gradient-to-br mx-auto p-[1px] rounded-full from-borderFromWhite/25 to-borderToYellow/25 max-w-[90%];
+}
+.yellowBorder
+{
+  @apply bg-gradient-to-br mx-auto p-[40px] rounded-full from-borderToYellow to-[#986300]/33 max-w-[90%];
+}
+.whiteBorder
+{
+  @apply bg-gradient-to-br mx-auto p-[1px] rounded-full from-borderFromWhite to-borderToWhite
+}
+@import 'tailwindcss'
