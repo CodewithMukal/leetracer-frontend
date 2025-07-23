@@ -27,7 +27,7 @@ export const Dashboard = () => {
       });
       const data = await response.json();
       setLeetcodeID(data.leetcodeID);
-
+  
       if (data.status === "success") {
         if (!data.leetcodeID) {
           navigate("/addLeetcode");
@@ -37,57 +37,61 @@ export const Dashboard = () => {
       } else {
         navigate("/login");
       }
-
+  
       setProfile(data);
       console.log("User info is:", data);
     };
-
+  
     const getData = async (username) => {
       const cache = localStorage.getItem("leetcodeStats");
-
+  
+      const now = new Date();
+      const startOfToday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+      );
+      const todayTimestamp = Math.floor(startOfToday.getTime() / 1000);
+  
       if (cache) {
         const parsed = JSON.parse(cache);
-        const isFresh = Date.now() - parsed.timestamp < 1000 * 60 * 30; // 30 min
-
+        const isFresh = Date.now() - parsed.timestamp < 1000 * 60 * 30;
+  
         if (isFresh && parsed.username === username) {
           console.log("🧠 Using cached LeetCode data");
-          console.log("Leetcode Data is: ", parsed.data);
           setData(parsed.data);
-          const time = Math.max(
+          setToday(parsed.data.submissionCalendar[todayTimestamp] || 0);
+  
+          const latestTime = Math.max(
             ...Object.keys(parsed.data.submissionCalendar).map(Number)
           );
-          const date = new Date(time * 1000);
-          const now = new Date();
-          const startoffToday = new Date(
-            now.getFullYear(),
-            now.getMonth,
-            now.getDate()
-          );
-          const timestamp = Math.floor(startoffToday.getTime() / 1000);
-          setToday(parsed.data.submissionCalendar[timestamp.toString()] || 0);
-          setSubmission(date.toLocaleDateString());
+          const latestDate = new Date(latestTime * 1000);
+          setSubmission(latestDate.toLocaleDateString());
+  
           setAcceptanceRate(parsed.acceptanceRate);
           return;
         }
       }
-
+  
       console.log("🌐 Fetching fresh LeetCode data");
-      const body = { username };
-
       const [res1, res2] = await Promise.all([
         fetch(`https://leetscan.vercel.app/${username}`),
         fetch(`https://leetcode-stats-api.herokuapp.com/${username}`),
       ]);
-
+  
       const data = await res1.json();
       const data2 = await res2.json();
-
+  
       setData(data);
       setAcceptanceRate(data2.acceptanceRate);
-      const timestamp = Math.floor(startoffToday.getTime() / 1000);
-      setToday(parsed.data.submissionCalendar[timestamp.toString()] || 0);
-      setSubmission(date.toLocaleDateString());
-      setAcceptanceRate(parsed.acceptanceRate);
+      setToday(data.submissionCalendar[todayTimestamp] || 0);
+  
+      const latestTime = Math.max(
+        ...Object.keys(data.submissionCalendar).map(Number)
+      );
+      const latestDate = new Date(latestTime * 1000);
+      setSubmission(latestDate.toLocaleDateString());
+  
       localStorage.setItem(
         "leetcodeStats",
         JSON.stringify({
@@ -98,9 +102,10 @@ export const Dashboard = () => {
         })
       );
     };
-
+  
     getInfo();
   }, []);
+  
 
   return (
     <div>
