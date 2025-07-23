@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "./components/Navbar";
 import hero from "./assets/hero.svg";
 import arrow from "./assets/arrow.svg";
@@ -12,9 +12,21 @@ import lead1 from "./assets/lead1.svg";
 import lead2 from "./assets/lead2.svg";
 import lead3 from "./assets/lead3.svg";
 import friends from "./assets/friends.svg";
+import ellipse1 from './assets/ellipse1.svg'
+import ellipse2 from './assets/ellipse2.svg'
 import getstarted from "./assets/getstarted.svg";
+import { useNavigate } from "react-router";
+
+const baseUrl =
+  import.meta.env.VITE_ENV === "production"
+    ? "https://leetracer-backend.onrender.com"
+    : "http://localhost:8000";
 
 export const Home = () => {
+  const navigate = useNavigate();
+  const [email,setEmail] = useState("");
+  
+
   return (
     <div>
       <Navbar />
@@ -31,12 +43,12 @@ export const Home = () => {
         </p>
         <div className="font-[Inter] justify-center items-center gap-20 flex">
           <div className="bg-gradient-to-bl graySpin from-borderFromWhite to-borderToWhite w-fit rounded-full p-[1px]">
-            <button className="bg-[#151515] hover:bg-[#595959] px-8 py-2 rounded-full ">
+            <button onClick={()=>navigate("/login")} className="bg-[#151515] hover:bg-[#595959] px-8 py-2 rounded-full ">
               Login
             </button>
           </div>
           <div className="bg-gradient-to-br from-[#996400] gradientSpin rounded-full to-[#986300]/50 flex justify-center items-center p-2">
-            <button className="bg-gradient-to-b hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex">
+            <button onClick={()=>navigate("/signup")} className="bg-gradient-to-b hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex">
               <img src={arrow} alt="" />
               <p>Get Started</p>
             </button>
@@ -62,7 +74,10 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-2 justify-center items-center my-16 font-[Geist]">
+      <section className="flex flex-col gap-2 justify-center relative items-center my-16 font-[Geist]">
+        <div className="absolute left-0">
+          <img src={ellipse1} alt="" />
+        </div>
         <div class="text-center justify-center text-zinc-300 text-4xl font-semibold font-['Geist']">
           Leaderboards
         </div>
@@ -90,7 +105,10 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-2 justify-center items-center my-9 font-[Geist]">
+      <section className="flex flex-col gap-2 justify-center items-center my-9 font-[Geist] relative">
+        <div className="absolute right-0">
+          <img src={ellipse2} alt="" />
+        </div>
         <div class="text-center justify-center text-zinc-300 text-4xl font-semibold font-['Geist']">
           Friends
         </div>
@@ -112,13 +130,15 @@ export const Home = () => {
               <div className="whiteBorder flex w-fit">
                 <input
                   type="email"
+                  onChange={(e)=>setEmail(e.target.value)}
+                  value={email}
                   placeholder="Enter your email"
                   className="text-lg bg-[#2B2A28] px-10 py-[4px] focus:outline-0 font-[Geist] rounded-full"
                 />
               </div>
               <div>
                 <div className="whiteBorder">
-                  <button className="bg-gradient-to-bl rounded-full px-4 py-1 text-lg font-[Geist] font-medium from-[#FFC75E] to-[#895900]">
+                  <button onClick={()=>navigate(`/signup/${encodeURIComponent(email)}`)} className="bg-gradient-to-bl rounded-full px-4 py-1 text-lg font-[Geist] font-medium from-[#FFC75E] to-[#895900]">
                     Get Started
                   </button>
                 </div>
