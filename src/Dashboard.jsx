@@ -143,51 +143,60 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if (data) {
-      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_KEY });
-
       const generateResponse = async (data) => {
-        try {
-          const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: `You are being used to generate some 4-6 healthy leetcode recommendations for user based on their data which is being given to you below. Make the responses good and based on the data. The data is: ${JSON.stringify(
-              data
-            )} which is a stringyfied object with details fetched from user's leetcode profile. Make the responses without any bold,italic syling. Number each point and add them in seperate lines. You exactly shouldnt only recommend questions to be solved but also general tips. And just get straight into the point with points. No need to say 'Here are tips. Keep the points short and readable so it can get covered in 2 lines max each. If you are trying to generate bigger points, reduce their number to 2-3. make sure total words dont go above 600`,
-          });
-
-          const responseText = response?.text || "";
-
-          const payload = { airesponse: responseText, time: Date.now() };
-          localStorage.setItem("airesponse", JSON.stringify(payload));
-
-          setAiresponse(responseText);
-        } catch (err) {
-          console.error(
-            "[AI RECOMMENDER] Error during Gemini response generation ❌:",
-            err
-          );
-        }
+        const response = await fetch(`${baseUrl}/ai/getRecomendations`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const respData = await response.json();
+        return respData.message;
       };
-
+  
       const cached = localStorage.getItem("airesponse");
       if (cached) {
         try {
           const parsed = JSON.parse(cached);
           const timeDiff = Date.now() - parsed.time;
           const sixHours = 6 * 60 * 60 * 1000;
-
+  
           if (timeDiff > sixHours) {
-            generateResponse(data);
+            (async () => {
+              const response = await generateResponse(data);
+              setAiresponse(response);
+              localStorage.setItem(
+                "airesponse",
+                JSON.stringify({ airesponse: response, time: Date.now() })
+              );
+            })();
           } else {
             setAiresponse(parsed.airesponse);
           }
         } catch (err) {
-          generateResponse(data);
+          (async () => {
+            const response = await generateResponse(data);
+            setAiresponse(response);
+            localStorage.setItem(
+              "airesponse",
+              JSON.stringify({ airesponse: response, time: Date.now() })
+            );
+          })();
         }
       } else {
-        generateResponse(data);
+        (async () => {
+          const response = await generateResponse(data);
+          setAiresponse(response);
+          localStorage.setItem(
+            "airesponse",
+            JSON.stringify({ airesponse: response, time: Date.now() })
+          );
+        })();
       }
     }
   }, [data]);
+  
 
   return (
     <div>
