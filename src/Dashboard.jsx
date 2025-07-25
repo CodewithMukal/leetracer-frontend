@@ -131,10 +131,10 @@ export const Dashboard = () => {
           console.log("📭 No cache found. Fetching...");
           await getData(data.leetcodeID);
         }
-      } else {
-        navigate("/login");
       }
-
+      else{
+        navigate('/login')
+      }
       setProfile(data);
     };
 
@@ -200,7 +200,7 @@ export const Dashboard = () => {
 
   return (
     <div>
-      {profile ? (
+      {data ? (
         <DashboardNav img={data.profile.userAvatar} />
       ) : (
         <DashboardNav />

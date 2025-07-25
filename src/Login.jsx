@@ -44,31 +44,63 @@ export const Login = () => {
     getInfo();
   }, []);
 
+  const getInfo = async () => {
+    const response = await fetch(`${baseUrl}/auth/info`, {
+      method: "POST",
+      credentials: "include",
+    });
+    const data = await response.json();
+    console.log("🧠 Session Check Result:", data);
+    return data;
+  };
+  
   const handleLogin = async () => {
     const send = { email, password, rememberMe };
     setLoading(true);
+  
     if (!email || !password) {
       setLoading(false);
       toast.error("Details Missing!");
       return;
     }
-    const response = await fetch(`${baseUrl}/auth/login`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(send),
-    });
-    const data = await response.json();
-    if (data.status === "success") {
+  
+    try {
+      const response = await fetch(`${baseUrl}/auth/login`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(send),
+      });
+  
+      const data = await response.json();
+      console.log("🔐 Login response:", data);
+  
+      if (data.status === "success") {
+        // 👇 Wait for cookie to be saved and validated
+        const session = await getInfo();
+  
+        if (session?.status === "success") {
+          if (!session.leetcodeID) {
+            navigate("/addLeetcode");
+          } else {
+            navigate("/dashboard");
+          }
+        } else {
+          console.warn("⚠️ Login success but session check failed");
+          toast.error("Session check failed. Try again.");
+        }
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      toast.error("Login failed: " + err.message);
+    } finally {
       setLoading(false);
-      navigate("/dashboard");
-    } else {
-      setLoading(false);
-      toast.error(data.message);
     }
   };
+  
 
   return (
     <div className="flex relative flex-col gap-20 justify-center items-center">
