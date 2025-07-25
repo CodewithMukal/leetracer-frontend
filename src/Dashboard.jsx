@@ -6,6 +6,7 @@ import deco from "./assets/deco.svg";
 import { Dailychallenge } from "./components/Dailychallenge";
 import { AIRecommendation } from "./components/AIRecommendation";
 import { GoogleGenAI } from "@google/genai";
+import { Logout } from "./components/Logout";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -49,12 +50,12 @@ export const Dashboard = () => {
             credentials: "include",
           });
 
-          const data = await response.json();
-          console.log("data is: ", data);
-          setData(data.data);
+          const data2 = await response.json();
+          console.log("data is: ", data2);
+          setData(data2.data);
 
           // Process submissionCalendar
-          const submissionCalendar = data.data.submissionCalendar;
+          const submissionCalendar = data2.data.submissionCalendar;
           const today = new Date();
           const UTC = Date.UTC(
             today.getUTCFullYear(),
@@ -72,18 +73,18 @@ export const Dashboard = () => {
           const date = new Date(time);
 
           const acceptanceRate = (
-            (data.data.submitStats.acSubmissionNum[0].submissions /
-              data.data.submitStats.totalSubmissionNum[0].submissions) *
+            (data2.data.submitStats.acSubmissionNum[0].submissions /
+              data2.data.submitStats.totalSubmissionNum[0].submissions) *
             100
           ).toFixed(2);
 
           setAcceptanceRate(acceptanceRate);
           setToday(subToday);
           setSubmission(date.toLocaleDateString());
-          console.log("data is: ", data);
+          console.log("data is: ", data2);
           localStorage.setItem(
             "leetcodeData",
-            JSON.stringify({ data: data.data, time: Date.now() })
+            JSON.stringify({ data: data2.data, time: Date.now(),user: data2.data.username }),
           );
         };
 
@@ -93,7 +94,7 @@ export const Dashboard = () => {
           const stored = JSON.parse(cached);
           const thirtyMinutes = 30 * 60 * 1000;
 
-          if (Date.now() - stored.time < thirtyMinutes) {
+          if (Date.now() - stored.time < thirtyMinutes && stored.user === data.leetcodeID) {
             console.log("⏳ Using cached data", stored.data);
 
             setData(stored.data);
@@ -200,6 +201,7 @@ export const Dashboard = () => {
 
   return (
     <div>
+      <Logout/>
       {data ? (
         <DashboardNav img={data.profile.userAvatar} />
       ) : (

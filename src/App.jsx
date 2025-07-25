@@ -5,6 +5,7 @@ import { Signup } from "./Signup";
 import { VerifyOTP } from "./VerifyOTP";
 import { Dashboard } from "./Dashboard";
 import { VerifyLeetcode } from "./VerifyLeetcode";
+import { Logout } from "./components/Logout";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/addLeetcode" element={<VerifyLeetcode/>} />
+          <Route path="/logout" element={<Logout/>} />
         </Routes>
       </BrowserRouter>
     </>
