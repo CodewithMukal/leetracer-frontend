@@ -31,7 +31,7 @@ export const Home = () => {
     <div className="relative max-w-[96%] mx-auto">
       <Navbar />
       <div className="flex justify-center left-[50%] -translate-x-[50%] absolute items-center">
-        <div className="w-[50vw] tubelight rotate-180"></div>
+        <div className="w-[50vw] tubelight animate-tube rotate-180"></div>
       </div>
       <div className="flex gap-10 flex-col mt-26 text-center justify-center items-center">
         <h1 className="max-w-[450px] text-[#CAC5BB] font-[Geist] font-bold text-[40px]">

@@ -106,7 +106,7 @@ export const Navbar3 = () => {
   return (
     <div className="flex justify-center items-center mx-auto my-4 max-w-[90%] w-[1146px]">
       <div className="bg-black p-4 flex justify-between items-center rounded-full w-full">
-        <button onClick={() => navigate("/")}>
+        <button className="cursor-pointer" onClick={() => navigate("/")}>
           <img src={logo} alt="" />
         </button>
         <div className="flex gap-4 font-[Inter]">
@@ -125,7 +125,7 @@ export const Navbar4 = () => {
   return (
     <div className="flex justify-start mx-auto my-4 w-[1146px]">
       <div className="bg-black p-4 flex justify-between items-center rounded-full w-full">
-        <button onClick={() => navigate("/")}>
+        <button className="cursor-pointer" onClick={() => navigate("/")}>
           <img src={logo} alt="" />
         </button>
       </div>
@@ -139,7 +139,7 @@ export const DashboardNav = (props) => {
   return (
     <div className="w-[95%] py-6 flex justify-between items-center mx-auto">
       <div>
-        <button>
+        <button onClick={()=> navigate("/")} className="cursor-pointer">
           <img src={logo} alt="" />
         </button>
       </div>
