@@ -72,8 +72,8 @@ export const Dashboard = () => {
           const date = new Date(time);
 
           const acceptanceRate = (
-            (data.data.submitStats.acSubmissionNum[0].count /
-              data.data.submitStats.totalSubmissionNum[0].count) *
+            (data.data.submitStats.acSubmissionNum[0].submissions /
+              data.data.submitStats.totalSubmissionNum[0].submissions) *
             100
           ).toFixed(2);
 

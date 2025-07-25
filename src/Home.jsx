@@ -28,12 +28,12 @@ export const Home = () => {
   
 
   return (
-    <div>
+    <div className="relative max-w-[96%] mx-auto">
       <Navbar />
-      <div className="flex justify-center relative -z-10 bottom-20 items-center">
-        <img src={hero} alt="" />
+      <div className="flex justify-center left-[50%] -translate-x-[50%] absolute items-center">
+        <div className="w-[50vw] tubelight rotate-180"></div>
       </div>
-      <div className="flex gap-10 flex-col text-center relative bottom-70 justify-center items-center">
+      <div className="flex gap-10 flex-col mt-26 text-center justify-center items-center">
         <h1 className="max-w-[450px] text-[#CAC5BB] font-[Geist] font-bold text-[40px]">
           Trace your Progress, Race with your Friends
         </h1>
@@ -41,21 +41,21 @@ export const Home = () => {
           AI-powered progress analysis for better performance along with
           graph’s, leaderboard’s and much more...
         </p>
-        <div className="font-[Inter] justify-center items-center gap-20 flex">
-          <div className="bg-gradient-to-bl graySpin from-borderFromWhite to-borderToWhite w-fit rounded-full p-[1px]">
-            <button onClick={()=>navigate("/login")} className="bg-[#151515] hover:bg-[#595959] px-8 py-2 rounded-full ">
+        <div className="font-[Inter] flex-col-reverse w-full md:flex-row-reverse justify-center items-center md:gap-20 gap-6 flex">
+          <div className="bg-gradient-to-bl graySpin from-borderFromWhite to-borderToWhite w-[90%] md:w-fit rounded-full p-[1px]">
+            <button onClick={()=>navigate("/login")} className="bg-[#151515] w-[99%] hover:bg-[#595959] px-8 py-2 rounded-full ">
               Login
             </button>
           </div>
-          <div className="bg-gradient-to-br from-[#996400] gradientSpin rounded-full to-[#986300]/50 flex justify-center items-center p-2">
-            <button onClick={()=>navigate("/signup")} className="bg-gradient-to-b hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex">
+          <div className="bg-gradient-to-br from-[#996400] md:w-fit w-[90%] gradientSpin rounded-full to-[#986300]/50 flex justify-center items-center p-2">
+            <button onClick={()=>navigate("/signup")} className="bg-gradient-to-b w-[99%] text-nowrap hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex">
               <img src={arrow} alt="" />
               <p>Get Started</p>
             </button>
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center relative -mb-40 -top-40">
+      <div className="flex justify-center items-center relative">
         <img src={dash} alt="" />
       </div>
 
@@ -67,7 +67,7 @@ export const Home = () => {
           Your one stop solution to check your daily progress.
         </div>
         <div className="mt-20">
-          <div className="flex justify-center gap-34 items-center">
+          <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-20 lg:gap-34 items-center">
             <Moon img={dash1} text={"Details directly fetched from Leetcode"} />
             <Moon img={dash2} text={"Details directly fetched from Leetcode"} />
             <Moon img={dash3} text={"Details directly fetched from Leetcode"} />
@@ -85,7 +85,7 @@ export const Home = () => {
           Climb up the ranks and get rewarded in friendly or global leaderboard
         </div>
         <div className="mt-20">
-          <div className="flex flex-col justify-center gap-34 items-center">
+          <div className="flex flex-col justify-center md:gap-20 lg:gap-34 gap-10 items-center">
             <Lead
               img={lead1}
               head="Global Leaderboard"
@@ -123,17 +123,17 @@ export const Home = () => {
       <section className="flex justify-center items-center">
         <div className="w-[1220px] p-[1px] h-[428px] max-w-[90%] rounded-4xl bg-gradient-to-br from-borderFromWhite to-borderToYellow">
           <div className="w-full gap-10 relative flex flex-col justify-center items-center bg-[#191715] rounded-4xl backdrop-blur-3xl h-full">
-            <h1 className="text-[80px] font-bold text-[#CAC5BB] font-[Inter]">
+            <h1 className="lg:text-[80px] md:text-[60px] text-[40px] font-bold text-[#CAC5BB] font-[Inter]">
               Grow Together
             </h1>
-            <div className="flex justify-center items-center gap-8">
-              <div className="whiteBorder flex w-fit">
+            <div className="flex justify-center flex-col md:flex-row items-center gap-8">
+              <div className="whiteBorder flex max-w-[95%] w-fit">
                 <input
                   type="email"
                   onChange={(e)=>setEmail(e.target.value)}
                   value={email}
                   placeholder="Enter your email"
-                  className="text-lg bg-[#2B2A28] px-10 py-[4px] focus:outline-0 font-[Geist] rounded-full"
+                  className="text-lg bg-[#2B2A28] mx-auto max-w-[99%] px-10 py-[4px] focus:outline-0 font-[Geist] rounded-full"
                 />
               </div>
               <div>

@@ -4,7 +4,53 @@ body {
   background-color: black;
   color: #d9d9d9;
 }
+.tubelight {
+  /* This is the main light source element */
+  position: relative; /* Needed for positioning the ::after pseudo-element */
+  width: 50vw; /* Responsive width */
+  max-width: 450px; /* Max width for larger screens */
+  height: 6px;
+  background-color: #FFC75E; /* A light, warm yellow for the bulb color */
+  border-radius: 3px;
 
+  /* * The box-shadow creates the intense glow right around the light source.
+   * We stack multiple shadows, from smallest and brightest to largest and more diffuse.
+  */
+  box-shadow:
+      0 0 5px #FFC75E,
+      0 0 10px #FFC75E,
+      0 0 20px #FFC75E,
+      0 0 35px #FFC75E; /* A slightly more yellow color for a warmer outer glow */
+}
+
+/*
+* The ::after pseudo-element is used to create the large, soft light
+* that is cast downwards onto the "wall".
+*/
+.tubelight::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; /* Position it slightly below the light source */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%; /* Make it wider than the light source for a broader cast */
+  height: 250px; /* Determines how far down the light is cast */
+  
+  /*
+   * A radial gradient creates the light falloff effect.
+   * It starts as a semi-transparent warm yellow at the top center (ellipse at top)
+   * and fades to fully transparent.
+  */
+  background: radial-gradient(
+      ellipse at top,
+      #FFC75E50 0%, /* 50% opacity light yellow */
+      rgba(250, 250, 210, 0) 70%   /* Fades to 0% opacity */
+  );
+  
+  border-radius: 50%; /* Shapes the gradient into a soft oval */
+  filter: blur(20px); /* Applies a heavy blur to soften the entire effect */
+  z-index: -1; /* Places the cast light behind the main tubelight element */
+}
 /* ==== Custom Scrollbar Styles ==== */
 ::-webkit-scrollbar {
   width: 8px;

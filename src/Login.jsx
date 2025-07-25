@@ -46,7 +46,9 @@ export const Login = () => {
 
   const handleLogin = async () => {
     const send = { email, password, rememberMe };
+    setLoading(true);
     if (!email || !password) {
+      setLoading(false);
       toast.error("Details Missing!");
       return;
     }
@@ -60,8 +62,10 @@ export const Login = () => {
     });
     const data = await response.json();
     if (data.status === "success") {
+      setLoading(false);
       navigate("/dashboard");
     } else {
+      setLoading(false);
       toast.error(data.message);
     }
   };
@@ -72,11 +76,11 @@ export const Login = () => {
       <div className="fixed bottom-0 ">
         <img src={lower} alt="" />
       </div>
-      <div className="flex border-[1px] rounded-xl border-borderFromWhite px-4 py-16 flex-col gap-8 justify-center">
+      <div className="flex border-[1px] max-w-[95%] rounded-xl border-borderFromWhite px-4 py-16 flex-col gap-8 justify-center">
         <h1 className="text-borderToYellow flex justify-center items-center font-bold font-[Geist] text-[32px]">
           Login
         </h1>
-        <div className="flex flex-col">
+        <div className="flex flex-col mx-auto">
           <label className="text-[#B1B1B1] font-[Geist] text-xl" htmlFor="">
             Email
           </label>
@@ -84,7 +88,7 @@ export const Login = () => {
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              className="bg-[#252525] min-w-[400px] rounded py-1 px-3"
+              className="bg-[#252525] lg:min-w-[400px] rounded py-1 px-3"
             />
           </div>
         </div>
@@ -96,7 +100,7 @@ export const Login = () => {
             <input
               type={showPass ? "text" : "password"}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-[#252525] rounded  min-w-[400px] py-1 px-3"
+              className="bg-[#252525] rounded  lg:min-w-[400px] py-1 px-3"
             />
             <button
               onClick={() => setShow(!showPass)}

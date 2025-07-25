@@ -86,10 +86,10 @@ export const Signup = () => {
     <div className="flex relative flex-col gap-10 justify-center items-center">
       <Navbar3 />
       <ToastContainer />
-      <div className="fixed bottom-0 -z-10 ">
+      <div className="md:fixed hidden bottom-0 -z-10 ">
         <img src={lower} alt="" />
       </div>
-      <div className="flex border-[1px] rounded-xl border-borderFromWhite px-4 py-16 flex-col gap-8 justify-center">
+      <div className="flex border-[1px] max-w-[95%] rounded-xl border-borderFromWhite px-4 py-16 flex-col gap-8 justify-center">
         <h1 className="text-borderToYellow flex justify-center items-center font-bold font-[Geist] text-[32px]">
           Signup
         </h1>
@@ -97,12 +97,12 @@ export const Signup = () => {
           <label className="text-[#B1B1B1] font-[Geist] text-xl" htmlFor="">
             Full Name
           </label>
-          <div className="bg-gradient-to-br w-fit from-borderFromWhite to-borderToWhite p-[1px] rounded">
+          <div className="bg-gradient-to-br flex w-fit from-borderFromWhite to-borderToWhite p-[1px] rounded">
             <input
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
               type="text"
-              className="bg-[#252525] min-w-[400px] rounded py-1 px-3"
+              className="bg-[#252525] w-fit mx-auto md:min-w-[400px] rounded py-1 px-3"
             />
           </div>
         </div>
@@ -115,7 +115,7 @@ export const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               type="email"
-              className="bg-[#252525] min-w-[400px] rounded py-1 px-3"
+              className="bg-[#252525] lg:min-w-[400px] rounded py-1 px-3"
             />
           </div>
         </div>
@@ -128,7 +128,7 @@ export const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               type={showPass ? "text" : "password"}
-              className="bg-[#252525] rounded  min-w-[400px] py-1 px-3"
+              className="bg-[#252525] rounded  lg:min-w-[400px] py-1 px-3"
             />
             <button
               onClick={() => setShow(!showPass)}
