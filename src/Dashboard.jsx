@@ -170,13 +170,13 @@ export const Dashboard = () => {
           const timeDiff = Date.now() - parsed.time;
           const sixHours = 6 * 60 * 60 * 1000;
 
-          if (timeDiff > sixHours) {
+          if (timeDiff > sixHours && parsed.username===data.username) {
             (async () => {
               const response = await generateResponse(data);
               setAiresponse(response);
               localStorage.setItem(
                 "airesponse",
-                JSON.stringify({ airesponse: response, time: Date.now() })
+                JSON.stringify({ airesponse: response, time: Date.now(), username: data.username })
               );
             })();
           } else {
@@ -188,7 +188,7 @@ export const Dashboard = () => {
             setAiresponse(response);
             localStorage.setItem(
               "airesponse",
-              JSON.stringify({ airesponse: response, time: Date.now() })
+              JSON.stringify({ airesponse: response, time: Date.now(), username: data.username })
             );
           })();
         }

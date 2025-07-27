@@ -14,6 +14,7 @@ export const RecentSub = (props) => {
     allTitles.push(
       <a
         href={`https://leetcode.com${submission.url}`}
+        target="_blank"
         className="flex justify-between items-center"
       >
         <h1 className="font-bold text-lg">{submission.title}</h1>

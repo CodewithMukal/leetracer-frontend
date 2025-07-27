@@ -187,7 +187,7 @@ export const DashboardNav = (props) => {
           <div className="w-10 h-10 bg-gray-400 rounded-full animate-pulse"></div>
         ) : (
           <div className="">
-            <div className="w-10 h-10 rounded-full">
+            <div onClick={()=> navigate('/profile')} className="w-10 h-10 cursor-pointer rounded-full">
               <img className="rounded-full" src={props.img} alt="" />
             </div>
           </div>
