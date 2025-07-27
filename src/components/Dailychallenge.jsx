@@ -7,7 +7,7 @@ export const Dailychallenge = (props) => {
       return str.length > maxLength ? str.slice(0,maxLength) + "..." : str;
     }
   return (
-    <div className="border py-6 flex flex-col gap-6 px-4 border-t-borderFromWhite border-x-borderToWhite border-b-borderToYellow/60 bg-[#373737]/10 backdrop-blur-[100px] rounded-xl">
+    <div className="border py-6 flex flex-col gap-6 px-4 border-t-borderFromWhite border-x-borderToWhite border-b-borderToYellow/60 max-w-[98%] bg-[#373737]/10 backdrop-blur-[100px] rounded-xl">
       <h1 className="font-[Geist] font-semibold text-[#BBBBBB] text-xl">Start off Today with:</h1>
       <div>
         {

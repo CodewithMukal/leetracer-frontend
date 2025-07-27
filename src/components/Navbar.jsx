@@ -188,7 +188,7 @@ export const DashboardNav = (props) => {
         ) : (
           <div className="">
             <div className="w-10 h-10 rounded-full">
-              <img src={props.img} alt="" />
+              <img className="rounded-full" src={props.img} alt="" />
             </div>
           </div>
         )}

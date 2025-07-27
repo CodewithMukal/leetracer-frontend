@@ -7,6 +7,7 @@ import { Dailychallenge } from "./components/Dailychallenge";
 import { AIRecommendation } from "./components/AIRecommendation";
 import { GoogleGenAI } from "@google/genai";
 import { Logout } from "./components/Logout";
+import { RecentSub } from "./components/RecentSub";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -84,7 +85,11 @@ export const Dashboard = () => {
           console.log("data is: ", data2);
           localStorage.setItem(
             "leetcodeData",
-            JSON.stringify({ data: data2.data, time: Date.now(),user: data2.data.username }),
+            JSON.stringify({
+              data: data2.data,
+              time: Date.now(),
+              user: data2.data.username,
+            })
           );
         };
 
@@ -94,7 +99,10 @@ export const Dashboard = () => {
           const stored = JSON.parse(cached);
           const thirtyMinutes = 30 * 60 * 1000;
 
-          if (Date.now() - stored.time < thirtyMinutes && stored.user === data.leetcodeID) {
+          if (
+            Date.now() - stored.time < thirtyMinutes &&
+            stored.user === data.leetcodeID
+          ) {
             console.log("⏳ Using cached data", stored.data);
 
             setData(stored.data);
@@ -132,9 +140,8 @@ export const Dashboard = () => {
           console.log("📭 No cache found. Fetching...");
           await getData(data.leetcodeID);
         }
-      }
-      else{
-        navigate('/login')
+      } else {
+        navigate("/login");
       }
       setProfile(data);
     };
@@ -155,14 +162,14 @@ export const Dashboard = () => {
         const respData = await response.json();
         return respData.message;
       };
-  
+
       const cached = localStorage.getItem("airesponse");
       if (cached) {
         try {
           const parsed = JSON.parse(cached);
           const timeDiff = Date.now() - parsed.time;
           const sixHours = 6 * 60 * 60 * 1000;
-  
+
           if (timeDiff > sixHours) {
             (async () => {
               const response = await generateResponse(data);
@@ -197,17 +204,11 @@ export const Dashboard = () => {
       }
     }
   }, [data]);
-  
 
   return (
     <div>
-      <Logout/>
-      {data ? (
-        <DashboardNav img={data.profile.userAvatar} />
-      ) : (
-        <DashboardNav />
-      )}
-      <div className="flex relative px-12 my-6 justify-center gap-64">
+      {data ? <DashboardNav img={data.profile.userAvatar} /> : <DashboardNav />}
+      <div className="flex flex-col md:flex-row relative px-12 my-6 justify-center md:gap-32 gap-10 lg:gap-64">
         <div className="">
           <div className="flex flex-col gap-8">
             <div className="flex justify-start items-center font-bold gap-2 font-[Geist] text-[32px]">
@@ -261,6 +262,19 @@ export const Dashboard = () => {
       <div className="absolute top-0 left-0 -z-10">
         <img src={deco} alt="" />
       </div>
+      <div className="absolute -bottom-80 right-0 rotate-180 -z-10">
+        <img src={deco} alt="" />
+      </div>
+      <div className="px-12 flex flex-col gap-10 mt-12">
+        <h1 className="text-3xl font-[Inter] font-bold">Recent Submissions</h1>
+        {
+          data && 
+          (
+            <RecentSub submissions={data.recentSubmissions}/>
+          )
+        }
+      </div>
+      <Logout/>
     </div>
   );
 };
