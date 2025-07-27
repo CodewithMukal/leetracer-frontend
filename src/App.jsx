@@ -7,6 +7,7 @@ import { Dashboard } from "./Dashboard";
 import { VerifyLeetcode } from "./VerifyLeetcode";
 import { Logout } from "./components/Logout";
 import { Profile } from "./Profile";
+import { Friends } from "./Friends";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/addLeetcode" element={<VerifyLeetcode/>} />
           <Route path="/logout" element={<Logout/>} />
           <Route path="/profile" element={<Profile/>} />
-
+          <Route path="/friends" element={<Friends/>} />
         </Routes>
       </BrowserRouter>
     </>
