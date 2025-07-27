@@ -105,7 +105,7 @@ export const Login = () => {
   return (
     <div className="flex relative flex-col gap-20 justify-center items-center">
       <Navbar2 />
-      <div className="fixed bottom-0 ">
+      <div className="fixed -z-10 bottom-0 ">
         <img src={lower} alt="" />
       </div>
       <div className="flex border-[1px] max-w-[95%] rounded-xl border-borderFromWhite px-4 py-16 flex-col gap-8 justify-center">

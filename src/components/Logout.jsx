@@ -32,7 +32,7 @@ export const Logout = () => {
   return (
     <div>
         <ToastContainer/>
-      <div className="bg-gradient-to-br from-borderFromWhite p-[1px] rounded-full to-borderToWhite w-fit">
+      <div className="bg-gradient-to-br transition-colors from-borderFromWhite p-[1px] rounded-full to-borderToWhite w-fit">
         {!loading ? (
           <button onClick={handleLogout} className="bg-[#151515] hover:bg-gray-700 rounded-full font-[Geist] font-medium px-6 py-2 cursor-pointer">
             Logout

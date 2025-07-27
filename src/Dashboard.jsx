@@ -265,7 +265,7 @@ export const Dashboard = () => {
       <div className="absolute -bottom-80 right-0 rotate-180 -z-10">
         <img src={deco} alt="" />
       </div>
-      <div className="px-12 flex flex-col gap-10 mt-12">
+      <div className="px-12 flex flex-col mt-12">
         <h1 className="text-3xl font-[Inter] font-bold">Recent Submissions</h1>
         {
           data && 
@@ -274,7 +274,6 @@ export const Dashboard = () => {
           )
         }
       </div>
-      <Logout/>
     </div>
   );
 };

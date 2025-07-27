@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { DashboardNav } from "./components/Navbar";
 import Spinner from "./components/Spinner";
 import { useNavigate } from "react-router";
+import { Logout } from "./components/Logout";
+import { toast, ToastContainer } from "react-toastify";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -13,7 +15,10 @@ export const Profile = () => {
   const [data, setData] = useState();
   const navigate = useNavigate();
   const [leetcodeID, setLeetcodeID] = useState("");
-  const [editable,setEditable] = useState(false);
+  const [editable, setEditable] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [changing, setChanging] = useState(false);
+  const [unlinking,setUnlinking] = useState(false);
   useEffect(() => {
     const getInfo = async () => {
       const response = await fetch(`${baseUrl}/auth/info`, {
@@ -95,44 +100,155 @@ export const Profile = () => {
       } else {
         navigate("/login");
       }
+      setFullName(data.fullName);
       setProfile(data);
     };
 
     getInfo();
   }, []);
+
+  const changeName = async () => {
+    console.log(fullName);
+    const body = { fullName };
+    if (!fullName) {
+      toast.error("Name cant be empty!");
+    }
+    setChanging(true);
+    const response = await fetch(`${baseUrl}/auth/change-name`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    if (data.status === "success") {
+      setChanging(false);
+      toast.success(`Name changed successfully to ${fullName}`);
+      setEditable(false);
+    } else {
+      setChanging(false);
+      toast.error(data.message);
+    }
+  };
+  const handleUnlink = async ()=> 
+    {
+      setUnlinking(true);
+      const response = await fetch(`${baseUrl}/auth/unlink-leetcode`,{
+        method:"POST",
+        credentials:"include"
+      })
+      const data = await response.json()
+      if(data.status==="success")
+        {
+          toast.success("ID unlinked from your Account")
+          navigate('/dashboard')
+        }
+      else
+      {
+        toast.error(data.message)
+      }
+    }
   return (
     <div>
       {data ? <DashboardNav img={data.profile.userAvatar} /> : <DashboardNav />}
       {profile ? (
-        <div className="bg-gradient-to-b w-fit p-[1px] font-[Geist] mx-auto from-borderFromWhite to-borderToYellow ">
-          <div className="bg-[#121212] flex flex-col gap-6 px-8 py-4">
+        <div className="bg-gradient-to-b w-[400px] mt-20 rounded-xl max-w-[90%] p-[1px] font-[Geist] mx-auto from-borderFromWhite to-borderToYellow ">
+          <ToastContainer />
+          <div className="bg-[#121212] flex flex-col rounded-xl gap-6 px-8 py-4">
             <h1 className="font-bold">Your Details</h1>
+            <div className="bg-gradient-to-br flex justify-center items-center mx-auto from-borderFromWhite to-borderToYellow rounded-full p-[2px] w-20 h-20">
+              <img
+                src={data.profile.userAvatar}
+                className="rounded-full"
+                alt=""
+              />
+            </div>
             <div className="flex flex-col gap-6">
-              <div>
-                <h1 className="text-[#B1B1B1]" >Full Name</h1>
-                <div className="bg-gradient-to-r rounded from-[#DEDEDE] w-fit mx-auto to-[#787878] p-[1px]">
-                  <input type="text" value={profile.fullName} readOnly={!editable} className="bg-[#262626] rounded px-3 py-1"/>
+              <div className="flex flex-col justify-start items-start">
+                <h1 className="text-[#B1B1B1]">Full Name</h1>
+                <div
+                  className={`bg-gradient-to-r ${
+                    !editable ? "text-white/40" : ""
+                  } rounded from-[#DEDEDE] w-full to-[#787878] p-[1px]`}
+                >
+                  <input
+                    type="text"
+                    value={fullName}
+                    readOnly={!editable}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="bg-[#262626] w-full rounded px-3 py-1"
+                  />
                 </div>
               </div>
               <div>
                 <h1 className="text-[#B1B1B1]">Leetcode ID</h1>
-                <div className="bg-gradient-to-r rounded from-[#DEDEDE] w-fit mx-auto to-[#787878] p-[1px]">
-                  <input type="text" readOnly value={profile.leetcodeID} className="bg-[#262626] rounded px-3 py-1"/>
+                <div className="bg-gradient-to-r relative rounded from-[#DEDEDE] w-full to-[#787878] p-[1px]">
+                  <input
+                    type="text"
+                    readOnly
+                    value={profile.leetcodeID}
+                    className="bg-[#262626] text-white/40 w-full rounded px-3 py-1"
+                  />
+                  <div className="bg-gradient-to-br top-[50%] -translate-y-[50%] right-1 absolute rounded w-fit from-[#DEDEDE] to-[#787878] p-[1px]">
+                    {!unlinking ? (
+                      <button
+                        onClick={() => handleUnlink()}
+                        className="text-red-600 text-[14px] hover:brightness-50 transition-all font-medium py-0.5 px-2 bg-[#343433]"
+                      >
+                        Unlink
+                      </button>
+                    ) : (
+                      <button className="text-green-600 text-[14px] transition-transform font-bold py-0.5 px-2 bg-[#343433]">
+                        <Spinner />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
               <div>
                 <h1 className="text-[#B1B1B1]">Email</h1>
-                <div className="bg-gradient-to-r rounded from-[#DEDEDE] w-fit mx-auto to-[#787878] p-[1px]">
-                  <input type="text" readOnly value={profile.email} className="bg-[#262626] rounded px-3 py-1"/>
+                <div className="bg-gradient-to-r rounded from-[#DEDEDE] w-full to-[#787878] p-[1px]">
+                  <input
+                    type="text"
+                    readOnly
+                    value={profile.email}
+                    className="bg-[#262626] w-full  text-white/40 rounded px-3 py-1"
+                  />
                 </div>
               </div>
             </div>
             <div className="flex justify-between items-center">
-              <button>Edit Details</button>
-              <button>Change Password</button>
+              {!editable ? (
+                <button
+                  onClick={() => setEditable(true)}
+                  className="bg-[#895900] hover:opacity-50 transition-opacity font-bold px-2 py-1 rounded-full text-white"
+                >
+                  Edit Details
+                </button>
+              ) : (
+                <div>
+                  {!changing ? (
+                    <button
+                      onClick={() => changeName()}
+                      className="bg-[#895900] hover:opacity-50 transition-opacity font-bold px-2 py-1 rounded-full text-white"
+                    >
+                      Save Details
+                    </button>
+                  ) : (
+                    <button className="bg-[#895900] opacity-50 transition-opacity font-bold px-1 py-1 rounded-full text-white">
+                      <Spinner />
+                    </button>
+                  )}
+                </div>
+              )}
+              <button className="bg-[#895900] hover:opacity-50 transition-opacity font-bold px-2 py-1 rounded-full text-white">
+                Change Password
+              </button>
             </div>
-            <div className="flex justify-center items-center bg-red-500 text-white font-bold rounded py-1 hover:bg-borderToYellow transition-all">
-              <button>Logout</button>
+            <div className="flex justify-center items-center">
+              <Logout />
             </div>
           </div>
         </div>

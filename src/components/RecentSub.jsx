@@ -47,7 +47,7 @@ export const RecentSub = (props) => {
     );
   }
   return (
-    <div className="border py-3 flex justify-between gap-14 px-4 border-borderFromWhite bg-[#373737]/10    backdrop-blur-[100px] rounded-xl max-w-[100%]">
+    <div className="border py-3 my-12 flex justify-between gap-14 px-4 border-borderFromWhite bg-[#373737]/10    backdrop-blur-[100px] rounded-xl max-w-[100%]">
       <div className="flex flex-col gap-6">
         <h1 className="font-bold text-xl">Question Title</h1>
         <div className="gap-2 flex flex-col">{allTitles}</div>
