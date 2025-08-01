@@ -198,7 +198,7 @@ export const Dashboard = () => {
           setAiresponse(response);
           localStorage.setItem(
             "airesponse",
-            JSON.stringify({ airesponse: response, time: Date.now() })
+            JSON.stringify({ airesponse: response, time: Date.now(), username: data.username })
           );
         })();
       }

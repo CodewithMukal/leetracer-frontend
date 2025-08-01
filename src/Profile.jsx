@@ -18,7 +18,7 @@ export const Profile = () => {
   const [editable, setEditable] = useState(false);
   const [fullName, setFullName] = useState("");
   const [changing, setChanging] = useState(false);
-  const [unlinking,setUnlinking] = useState(false);
+  const [unlinking, setUnlinking] = useState(false);
   useEffect(() => {
     const getInfo = async () => {
       const response = await fetch(`${baseUrl}/auth/info`, {
@@ -132,24 +132,20 @@ export const Profile = () => {
       toast.error(data.message);
     }
   };
-  const handleUnlink = async ()=> 
-    {
-      setUnlinking(true);
-      const response = await fetch(`${baseUrl}/auth/unlink-leetcode`,{
-        method:"POST",
-        credentials:"include"
-      })
-      const data = await response.json()
-      if(data.status==="success")
-        {
-          toast.success("ID unlinked from your Account")
-          navigate('/dashboard')
-        }
-      else
-      {
-        toast.error(data.message)
-      }
+  const handleUnlink = async () => {
+    setUnlinking(true);
+    const response = await fetch(`${baseUrl}/auth/unlink-leetcode`, {
+      method: "POST",
+      credentials: "include",
+    });
+    const data = await response.json();
+    if (data.status === "success") {
+      toast.success("ID unlinked from your Account");
+      navigate("/dashboard");
+    } else {
+      toast.error(data.message);
     }
+  };
   return (
     <div>
       {data ? <DashboardNav img={data.profile.userAvatar} /> : <DashboardNav />}
@@ -204,6 +200,25 @@ export const Profile = () => {
                         <Spinner />
                       </button>
                     )}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h1 className="text-[#B1B1B1]">UID</h1>
+                <div className="bg-gradient-to-r relative rounded from-[#DEDEDE] w-full to-[#787878] p-[1px]">
+                  <input
+                    type="text"
+                    readOnly
+                    value={profile.uid}
+                    className="bg-[#262626] text-white/40 w-full rounded px-3 py-1"
+                  />
+                  <div className="bg-gradient-to-br top-[50%] -translate-y-[50%] right-1 absolute rounded w-fit from-[#DEDEDE] to-[#787878] p-[1px]">
+                    <button
+                      onClick={() => {navigator.clipboard.writeText(profile.uid);toast.success(`Copied: ${profile.uid}`)}}
+                      className="text-[14px] hover:brightness-50 transition-all font-medium py-0.5 px-2 bg-[#343433]"
+                    >
+                      Copy
+                    </button>
                   </div>
                 </div>
               </div>

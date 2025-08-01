@@ -13,7 +13,7 @@ export const Dailychallenge = (props) => {
         {
           props.questionNumber && props.questionTitle && props.questionLink && props.questionDiff ? 
           (
-            <div className="text-xl flex gap-16 justify-center items-center font-bold">
+            <div className="text-xl flex gap-16 justify-between items-center font-bold">
               <a target="_blank" href={props.questionLink}>{props.questionNumber}. {truncate(props.questionTitle,30)}</a>
               <p className={`${props.questionDiff==="Hard"?"text-red-500":props.questionDiff==="Medium"?"text-yellow-500":props.questionDiff==="Easy"?"text-green-500":""}`}>{props.questionDiff}</p>
             </div>
