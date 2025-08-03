@@ -3,7 +3,8 @@ import logo from "../assets/logo.svg";
 import user from "../assets/user.svg";
 import Bell from "../assets/Bell.svg";
 import search from "../assets/search.svg";
-import { Link, NavLink, useLocation, useNavigate } from "react-router";
+import { data, Link, NavLink, useLocation, useNavigate } from "react-router";
+import { Results } from "./Results";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -135,11 +136,25 @@ export const Navbar4 = () => {
 
 export const DashboardNav = (props) => {
   const navigate = useNavigate();
-
+  const [data, setData] = useState([]);
+  const [selected,setSelect] = useState(false);
+  const [search,setSearch] = useState("");
+  const user = props.user;
+  const handleSearch = async (query) => {
+    const response = await fetch(`${baseUrl}/search?query=${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+    });
+    const data = await response.json();
+    setData(data);
+  };
   return (
     <div className="w-[95%] py-6 flex justify-between items-center mx-auto">
       <div>
-        <button onClick={()=> navigate("/")} className="cursor-pointer">
+        <button onClick={() => navigate("/")} className="cursor-pointer">
           <img src={logo} alt="" />
         </button>
       </div>
@@ -171,12 +186,14 @@ export const DashboardNav = (props) => {
         <button>
           <img src={Bell} alt="" />
         </button>
-        <div className="w-fit relative bg-gradient-to-br from-borderFromWhite to-borderToWhite rounded-full p-[1px]">
+        <div className="w-fit relative bg-gradient-to-br z-30 from-borderFromWhite to-borderToWhite rounded-lg p-[1px]">
           <input
-            className="bg-black max-w-[170px] rounded-full pr-10 font-[Geist] px-4 text-[20px]"
+            className="bg-black max-w-[170px] focus:outline-0 rounded-lg pr-10 font-[Geist] px-4 text-[20px]"
             placeholder="Search"
+            onChange={(e) =>{ handleSearch(e.target.value); setSearch(e.target.value)}}
             type="text"
           />
+          <div className="absolute top-[100%] w-full">{search && <Results results={data} />}</div>
           <img
             src={search}
             className="absolute right-3 top-[50%] -translate-y-[50%]"
@@ -187,7 +204,10 @@ export const DashboardNav = (props) => {
           <div className="w-10 h-10 bg-gray-400 rounded-full animate-pulse"></div>
         ) : (
           <div className="">
-            <div onClick={()=> navigate('/profile')} className="w-10 h-10 cursor-pointer rounded-full">
+            <div
+              onClick={() => navigate("/profile")}
+              className="w-10 h-10 cursor-pointer rounded-full"
+            >
               <img className="rounded-full" src={props.img} alt="" />
             </div>
           </div>

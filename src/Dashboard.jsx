@@ -206,7 +206,7 @@ export const Dashboard = () => {
 
   return (
     <div>
-      {data ? <DashboardNav img={data.profile.userAvatar} /> : <DashboardNav />}
+      {data ? <DashboardNav img={data.profile.userAvatar} user={data.username} /> : <DashboardNav />}
       <div className="flex flex-col md:flex-row relative px-12 my-6 justify-center md:gap-32 gap-10 lg:gap-64">
         <div className="">
           <div className="flex flex-col gap-8">

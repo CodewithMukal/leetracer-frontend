@@ -8,6 +8,8 @@ import { VerifyLeetcode } from "./VerifyLeetcode";
 import { Logout } from "./components/Logout";
 import { Profile } from "./Profile";
 import { Friends } from "./Friends";
+import { Results } from "./components/Results";
+import { Search } from "./Search";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="/logout" element={<Logout/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/friends" element={<Friends/>} />
+          <Route path="/search/:id" element={<Search/>} />
         </Routes>
       </BrowserRouter>
     </>

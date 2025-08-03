@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { DashboardNav } from "./components/Navbar";
 import { Incoming } from "./components/Incoming";
 import { FriendStats } from "./components/FriendStats";
+import { Manage } from "./components/Manage";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -98,20 +99,20 @@ export const Friends = () => {
 
     getInfo();
   }, []);
-  return(
+  return (
     <div>
       {data ? (
-        <DashboardNav img={data.profile.userAvatar}/>
-      )
-      :
-      (
-        <DashboardNav/>
-      )
-    }
-    <div className="flex flex-col-reverse lg:flex-row lg:justify-between px-[10px] lg:px-[100px] mt-[50px]">
-      <FriendStats/>
-      <Incoming/>
-    </div>
+        <DashboardNav img={data.profile.userAvatar} user={data.username} />
+      ) : (
+        <DashboardNav />
+      )}
+      <div className="flex flex-col-reverse lg:flex-row lg:justify-between px-[10px] lg:px-[100px] mt-[50px]">
+        <FriendStats />
+        <div className="flex flex-col gap-5 w-[600px]">
+          <Incoming />
+          <Manage/>
+        </div>
+      </div>
     </div>
   );
 };

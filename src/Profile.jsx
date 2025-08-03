@@ -148,7 +148,7 @@ export const Profile = () => {
   };
   return (
     <div>
-      {data ? <DashboardNav img={data.profile.userAvatar} /> : <DashboardNav />}
+      {data ? <DashboardNav img={data.profile.userAvatar} user={data.username} /> : <DashboardNav />}
       {profile ? (
         <div className="bg-gradient-to-b w-[400px] mt-20 rounded-xl max-w-[90%] p-[1px] font-[Geist] mx-auto from-borderFromWhite to-borderToYellow ">
           <ToastContainer />

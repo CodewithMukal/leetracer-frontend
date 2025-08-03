@@ -23,6 +23,7 @@ export const Stats = (props) => {
         body: JSON.stringify(body),
       });
       const data = await response.json();
+      console.log("Data is:",data)
       setData(data.data.data);
       console.log(data.data.data)
       const submissionCalendar = data.data.data.submissionCalendar;

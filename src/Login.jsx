@@ -6,7 +6,7 @@ import lower from "./assets/lower.svg";
 import checkBoxEmpty from "./assets/checkBoxEmpty.svg";
 import checkBoxFilled from "./assets/checkBoxFilled.svg";
 import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Spinner from "./components/Spinner";
 
 const baseUrl =
@@ -103,8 +103,9 @@ export const Login = () => {
   
 
   return (
-    <div className="flex relative flex-col gap-20 justify-center items-center">
+    <div className="flex relative flex-col gap-10 justify-center items-center">
       <Navbar2 />
+      <ToastContainer/>
       <div className="fixed -z-10 bottom-0 ">
         <img src={lower} alt="" />
       </div>
