@@ -23,7 +23,7 @@ export const FriendStats = () => {
     getFriends();
   }, []);
   return (
-    <div className="flex flex-col gap-6">
+    <div className="grid lg:mt-0 mt-6 lg:grid-cols-2 grid-cols-1 gap-6">
       {data ? (
         data.friends.map((friend, index) => (
           <div key={index}>

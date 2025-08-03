@@ -55,7 +55,6 @@ export const Dashboard = () => {
           console.log("data is: ", data2);
           setData(data2.data);
 
-          // Process submissionCalendar
           const submissionCalendar = data2.data.submissionCalendar;
           const today = new Date();
           const UTC = Date.UTC(
@@ -170,7 +169,7 @@ export const Dashboard = () => {
           const timeDiff = Date.now() - parsed.time;
           const sixHours = 6 * 60 * 60 * 1000;
 
-          if (timeDiff > sixHours && parsed.username===data.username) {
+          if (timeDiff > sixHours || parsed.username!==data.username) {
             (async () => {
               const response = await generateResponse(data);
               setAiresponse(response);

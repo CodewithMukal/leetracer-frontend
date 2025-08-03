@@ -108,7 +108,7 @@ export const Friends = () => {
         <DashboardNav/>
       )
     }
-    <div className="flex justify-between px-[100px] mt-[50px]">
+    <div className="flex flex-col-reverse lg:flex-row lg:justify-between px-[10px] lg:px-[100px] mt-[50px]">
       <FriendStats/>
       <Incoming/>
     </div>
