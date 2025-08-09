@@ -18,7 +18,6 @@ export const Incoming = () => {
       });
       const data = await response.json();
       setIncoming(data.requests);
-      console.log(data.requests);
     };
     getIncoming();
   }, []);

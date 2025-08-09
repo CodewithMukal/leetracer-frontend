@@ -52,7 +52,6 @@ export const Dashboard = () => {
           });
 
           const data2 = await response.json();
-          console.log("data is: ", data2);
           setData(data2.data);
 
           const submissionCalendar = data2.data.submissionCalendar;
@@ -81,7 +80,6 @@ export const Dashboard = () => {
           setAcceptanceRate(acceptanceRate);
           setToday(subToday);
           setSubmission(date.toLocaleDateString());
-          console.log("data is: ", data2);
           localStorage.setItem(
             "leetcodeData",
             JSON.stringify({
@@ -102,7 +100,6 @@ export const Dashboard = () => {
             Date.now() - stored.time < thirtyMinutes &&
             stored.user === data.leetcodeID
           ) {
-            console.log("⏳ Using cached data", stored.data);
 
             setData(stored.data);
             const submissionCalendar = stored.data.submissionCalendar;
@@ -132,11 +129,9 @@ export const Dashboard = () => {
             setToday(subToday);
             setSubmission(date.toLocaleDateString());
           } else {
-            console.log("♻️ Cache expired. Refetching...");
             await getData(data.leetcodeID);
           }
         } else {
-          console.log("📭 No cache found. Fetching...");
           await getData(data.leetcodeID);
         }
       } else {

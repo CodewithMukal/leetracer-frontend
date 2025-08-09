@@ -25,7 +25,6 @@ export const VerifyLeetcode = () => {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data);
       if (data.status !== "success") {
         navigate("/login");
       } else if (data.leetcodeID) {
@@ -68,7 +67,7 @@ export const VerifyLeetcode = () => {
     }
     setLoading(true);
     const send = { username, uniqueID };
-    console.log(send);
+
     const response = await fetch(`${baseUrl}/auth/checkLeetcode`, {
       method: "POST",
       credentials: "include",

@@ -26,7 +26,6 @@ export const Request = (props) => {
     getInfo(props.UID);
   }, []);
   const addFriend = async () => {
-    console.log(props.UID);
     const response = await fetch(`${baseUrl}/friends/acceptReq`, {
       method: "POST",
       credentials: "include",
@@ -43,7 +42,6 @@ export const Request = (props) => {
     }
   };
   const reject = async () => {
-    console.log(props.UID);
     const body = { UID: props.UID };
     const response = await fetch(`${baseUrl}/friends/rejectReq`, {
       method: "POST",

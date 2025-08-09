@@ -23,9 +23,9 @@ export const Stats = (props) => {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log("Data is:",data)
+      
       setData(data.data.data);
-      console.log(data.data.data)
+      
       const submissionCalendar = data.data.data.submissionCalendar;
       const today = new Date();
       const UTC = Date.UTC(
@@ -33,7 +33,7 @@ export const Stats = (props) => {
         today.getUTCMonth(),
         today.getUTCDate()
       );
-      console.log(data.data.data.submissionCalendar)
+      
       const todayTime = Math.floor(UTC / 1000);
       const subToday = submissionCalendar[todayTime]
         ? submissionCalendar[todayTime]
@@ -53,7 +53,6 @@ export const Stats = (props) => {
       setAcceptanceRate(acceptanceRate);
       setToday(subToday);
       setSubmission(date.toLocaleDateString());
-      console.log(data);
     };
     getData();
   }, []);

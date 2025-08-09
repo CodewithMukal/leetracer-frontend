@@ -29,7 +29,7 @@ export const Login = () => {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data)
+
       if (data.status==="success") {
         if(!data.leetcodeID)
           {
@@ -50,7 +50,6 @@ export const Login = () => {
       credentials: "include",
     });
     const data = await response.json();
-    console.log("🧠 Session Check Result:", data);
     return data;
   };
   
@@ -75,7 +74,6 @@ export const Login = () => {
       });
   
       const data = await response.json();
-      console.log("🔐 Login response:", data);
   
       if (data.status === "success") {
         // 👇 Wait for cookie to be saved and validated
@@ -88,7 +86,6 @@ export const Login = () => {
             navigate("/dashboard");
           }
         } else {
-          console.warn("⚠️ Login success but session check failed");
           toast.error("Session check failed. Try again.");
         }
       } else {

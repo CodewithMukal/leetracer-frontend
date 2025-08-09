@@ -79,15 +79,12 @@ export const FindAll = () => {
             Date.now() - stored.time < thirtyMinutes &&
             stored.user === data.leetcodeID
           ) {
-            console.log("⏳ Using cached data", stored.data);
 
             setData(stored.data);
           } else {
-            console.log("♻️ Cache expired. Refetching...");
             await getData(data.leetcodeID);
           }
         } else {
-          console.log("📭 No cache found. Fetching...");
           await getData(data.leetcodeID);
         }
       } else {

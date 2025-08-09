@@ -18,7 +18,6 @@ export const FriendStats = () => {
       });
       const data = await response.json();
       setData(data);
-      console.log("Friends are:", data.friends);
     };
     getFriends();
   }, []);
