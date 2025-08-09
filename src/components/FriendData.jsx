@@ -10,6 +10,7 @@ const baseUrl =
 
 export const FriendData = (props) => {
   const [data, setData] = useState();
+  const [show, setShow] = useState(false);
   const [removing, setRemoving] = useState(false);
   useEffect(() => {
     const getInfo = async (UID) => {
@@ -64,23 +65,29 @@ export const FriendData = (props) => {
           <div className="flex justify-center items-center gap-6">
             <p>@{data.leetcodeID}</p>
             <div className="relative group">
-              <button className="w-10 h-10 flex justify-center items-center rounded-full hover:bg-white/10 cursor-pointer">
+              <button
+                onFocus={() => setShow(true)}
+                onBlur={()=> setShow(false)}
+                className="w-10 h-10 flex justify-center items-center rounded-full hover:bg-white/10 cursor-pointer"
+              >
                 <img src={dots} alt="" />
               </button>
-              <div className="absolute hidden group-hover:flex text-nowrap right-0 md:-right-24 top-[110%] -translate-y-[50%] bg-black border-white/30 border-[1px] rounded-b rounded-tr px-2 py-1">
-                {!removing ? (
-                  <button
-                    onClick={() => removeFriend(props.UID)}
-                    className="text-red-500 text-sm hover:opacity-50 transition-opacity"
-                  >
-                    Remove Friend
-                  </button>
-                ) : (
-                  <button className="text-red-500 opacity-50 text-sm hover:opacity-50 transition-opacity">
-                    <Spinner />
-                  </button>
-                )}
-              </div>
+              {show && (
+                <div className="absolute text-nowrap right-0 md:-right-24 top-[110%] -translate-y-[50%] bg-black border-white/30 border-[1px] rounded-b rounded-tr px-2 py-1">
+                  {!removing ? (
+                    <button
+                      onClick={() => removeFriend(props.UID)}
+                      className="text-red-500 text-sm hover:opacity-50 transition-opacity"
+                    >
+                      Remove Friend
+                    </button>
+                  ) : (
+                    <button className="text-red-500 opacity-50 text-sm hover:opacity-50 transition-opacity">
+                      <Spinner />
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

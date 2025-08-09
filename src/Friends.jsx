@@ -106,7 +106,7 @@ export const Friends = () => {
       ) : (
         <DashboardNav />
       )}
-      <div className="flex flex-col-reverse lg:flex-row lg:justify-between px-[10px] lg:px-[100px] mt-[50px]">
+      <div className="flex flex-col-reverse gap-3 lg:flex-row lg:justify-between px-[10px] lg:px-[100px] mt-[50px]">
         <FriendStats />
         <div className="flex flex-col gap-5 mx-auto w-[600px] max-w-[99%]">
           <Incoming />
