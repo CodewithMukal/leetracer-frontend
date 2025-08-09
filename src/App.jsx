@@ -10,6 +10,8 @@ import { Profile } from "./Profile";
 import { Friends } from "./Friends";
 import { Results } from "./components/Results";
 import { Search } from "./Search";
+import { Notfound } from "./Notfound";
+import { FindAll } from "./FindAll";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/friends" element={<Friends/>} />
           <Route path="/search/:id" element={<Search/>} />
+          <Route path="/search" element={<FindAll/>} />
+          <Route path="*" element={<Notfound/>} />
         </Routes>
       </BrowserRouter>
     </>

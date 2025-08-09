@@ -4,6 +4,20 @@ body {
   background-color: black;
   color: #d9d9d9;
 }
+.animate-slide
+{
+  animation: slide 100ms ease-in-out;
+}
+@keyframes slide {
+  from
+  {
+    translate: 100% 0;
+  }
+  to
+  {
+    translate: 0px 0;
+  }
+}
 
 .animate-tube
 {

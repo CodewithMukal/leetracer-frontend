@@ -21,7 +21,7 @@ export const Manage = () => {
   }, []);
   return (
     <div>
-      <div className="border-[1px] ml-2 rounded-xl border-t-borderFromWhite border-x-borderFromWhite bg-[#373737]/10 border-b-borderToYellow min-w-[100%] max-w-[600px] px-4 py-2">
+      <div className="border-[1px] rounded-xl border-t-borderFromWhite border-x-borderFromWhite bg-[#373737]/10 border-b-borderToYellow w-[100%] px-4 py-2">
         <h1 className="font-bold text-xl font-[Geist] text-[#BBBBBB]">
           Manage Friends
         </h1>

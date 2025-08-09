@@ -7,13 +7,13 @@ export const Dailychallenge = (props) => {
       return str.length > maxLength ? str.slice(0,maxLength) + "..." : str;
     }
   return (
-    <div className="border py-6 flex flex-col gap-6 px-4 border-t-borderFromWhite border-x-borderToWhite border-b-borderToYellow/60 max-w-[98%] bg-[#373737]/10 backdrop-blur-[100px] rounded-xl">
+    <div className="border py-6 mx-auto flex flex-col gap-6 px-4 border-t-borderFromWhite border-x-borderToWhite border-b-borderToYellow/60 w-[98%] bg-[#373737]/10 backdrop-blur-[100px] rounded-xl">
       <h1 className="font-[Geist] font-semibold text-[#BBBBBB] text-xl">Start off Today with:</h1>
       <div>
         {
           props.questionNumber && props.questionTitle && props.questionLink && props.questionDiff ? 
           (
-            <div className="text-xl flex gap-16 justify-between items-center font-bold">
+            <div className="text-xl flex justify-between items-center font-bold">
               <a target="_blank" href={props.questionLink}>{props.questionNumber}. {truncate(props.questionTitle,30)}</a>
               <p className={`${props.questionDiff==="Hard"?"text-red-500":props.questionDiff==="Medium"?"text-yellow-500":props.questionDiff==="Easy"?"text-green-500":""}`}>{props.questionDiff}</p>
             </div>

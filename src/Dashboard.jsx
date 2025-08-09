@@ -205,12 +205,12 @@ export const Dashboard = () => {
   }, [data]);
 
   return (
-    <div>
+    <div className="lg:px-28 px-4">
       {data ? <DashboardNav img={data.profile.userAvatar} user={data.username} /> : <DashboardNav />}
-      <div className="flex flex-col md:flex-row relative px-12 my-6 justify-center md:gap-32 gap-10 lg:gap-64">
+      <div className="flex flex-col gap-8 lg:flex-row relative my-6 justify-between">
         <div className="">
           <div className="flex flex-col gap-8">
-            <div className="flex justify-start items-center font-bold gap-2 font-[Geist] text-[32px]">
+            <div className="flex flex-col md:flex-row justify-start items-center font-bold gap-2 font-[Geist] text-[32px]">
               <h1>Welcome Back,</h1>
               {profile ? (
                 <h1 className="text-borderToYellow">{profile.fullName}</h1>
@@ -264,7 +264,7 @@ export const Dashboard = () => {
       <div className="absolute -bottom-80 right-0 rotate-180 -z-10">
         <img src={deco} alt="" />
       </div>
-      <div className="px-12 flex flex-col mt-12">
+      <div className="flex flex-col mt-12">
         <h1 className="text-3xl font-[Inter] font-bold">Recent Submissions</h1>
         {
           data && 

@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { DashboardNav } from "./components/Navbar";
-import { Incoming } from "./components/Incoming";
-import { FriendStats } from "./components/FriendStats";
-import { Manage } from "./components/Manage";
+import { useNavigate } from "react-router";
+import search1 from "./assets/search.svg";
+import { Results } from "./components/Results";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
     ? "https://leetracer-backend.onrender.com"
     : "http://localhost:8000";
 
-export const Friends = () => {
-  const [profile, setProfile] = useState();
-  const [data, setData] = useState();
+export const FindAll = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState();
+  const [username, setLeetcodeID] = useState("");
+  const [profile, setProfile] = useState();
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+  const [selected, setSelect] = useState(false);
+  const [user, setUser] = useState();
+  const [hidden, setHidden] = useState(true);
+  const handleSearch = async (query) => {
+    const response = await fetch(`${baseUrl}/search?query=${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+    });
+    const data = await response.json();
+    setResults(data);
+  };
   useEffect(() => {
     const getInfo = async () => {
       const response = await fetch(`${baseUrl}/auth/info`, {
@@ -22,7 +38,8 @@ export const Friends = () => {
       });
 
       const data = await response.json();
-
+      setLeetcodeID(data.leetcodeID);
+      setUser(data.username)
       if (data.status === "success") {
         if (!data.leetcodeID) {
           navigate("/addLeetcode");
@@ -41,9 +58,7 @@ export const Friends = () => {
           });
 
           const data2 = await response.json();
-          console.log("data is: ", data2);
           setData(data2.data);
-          console.log("data is: ", data2);
           localStorage.setItem(
             "leetcodeData",
             JSON.stringify({
@@ -67,22 +82,6 @@ export const Friends = () => {
             console.log("⏳ Using cached data", stored.data);
 
             setData(stored.data);
-            const submissionCalendar = stored.data.submissionCalendar;
-            const today = new Date();
-            const UTC = Date.UTC(
-              today.getUTCFullYear(),
-              today.getUTCMonth(),
-              today.getUTCDate()
-            );
-            const todayTime = Math.floor(UTC / 1000);
-            const subToday = submissionCalendar[todayTime]
-              ? submissionCalendar[todayTime]
-              : 0;
-
-            const keys = Object.keys(submissionCalendar).map(Number);
-            const max = Math.max(...keys);
-            const time = max * 1000;
-            const date = new Date(time);
           } else {
             console.log("♻️ Cache expired. Refetching...");
             await getData(data.leetcodeID);
@@ -106,11 +105,25 @@ export const Friends = () => {
       ) : (
         <DashboardNav />
       )}
-      <div className="flex flex-col-reverse lg:flex-row lg:justify-between px-[10px] lg:px-[100px] mt-[50px]">
-        <FriendStats />
-        <div className="flex flex-col gap-5 mx-auto w-[600px] max-w-[99%]">
-          <Incoming />
-          <Manage/>
+      <div>
+        <div className="w-fit mx-auto relative bg-gradient-to-br z-30 from-borderFromWhite to-borderToWhite rounded-lg p-[1px]">
+          <input
+            className="bg-black w-[90vw] max-w-[600px] focus:outline-0 rounded-lg pr-10 font-[Geist] px-4 text-[20px]"
+            placeholder="Search"
+            onChange={(e) => {
+              handleSearch(e.target.value);
+              setSearch(e.target.value);
+            }}
+            type="text"
+          />
+          <div className="absolute top-[100%] w-full">
+            {search && <Results results={results} all={true} />}
+          </div>
+          <img
+            src={search1}
+            className="absolute right-3 top-[50%] -translate-y-[50%]"
+            alt=""
+          />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import leetcode from "../assets/leetcode.svg";
-import { UserInfo2 } from "./UserInfo";
+import { UserInfo, UserInfo2 } from "./UserInfo";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"

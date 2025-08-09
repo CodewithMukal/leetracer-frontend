@@ -91,9 +91,9 @@ export const VerifyLeetcode = () => {
       <Navbar4 />
       <img className="-z-10 absolute bottom-0" src={lower} alt="" />
       <ToastContainer autoClose={2000} />
-      <div className="w-fit bg-gradient-to-b p-[1px] mt-40 mx-auto rounded-2xl from-borderFromWhite to-borderToYellow">
+      <div className="w-fit max-w-[95%] bg-gradient-to-b p-[1px] mt-40 mx-auto rounded-2xl from-borderFromWhite to-borderToYellow">
         <div className="bg-[#121211] flex flex-col justify-center items-center px-20 py-10 rounded-2xl">
-          <h1 className="font-[Geist] text-[32px] font-bold text-borderToYellow">
+          <h1 className="font-[Geist] sm:text-[32px] font-bold text-borderToYellow">
             Add Leetcode ID
           </h1>
           <div className="flex my-6 flex-col gap-4">
@@ -106,7 +106,7 @@ export const VerifyLeetcode = () => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="text-xl font-[Geist] py-1 pl-2 bg-[#262625]"
+                  className="text-xl rounded font-[Geist] py-1 pl-2 bg-[#262625]"
                 />
                 {!verified && (
                   <div className="bg-gradient-to-br top-[50%] -translate-y-[50%] right-1 absolute rounded w-fit from-[#DEDEDE] to-[#787878] p-[1px]">
@@ -135,7 +135,7 @@ export const VerifyLeetcode = () => {
                   value={uniqueID}
                   type="text"
                   readOnly
-                  className="text-xl font-[Geist] py-1 pl-2 bg-[#262625]"
+                  className="text-xl rounded font-[Geist] py-1 pl-2 bg-[#262625]"
                 />
                 <div className="bg-gradient-to-br top-[50%] -translate-y-[50%] right-1 absolute rounded w-fit from-[#DEDEDE] to-[#787878] p-[1px]">
                   <button

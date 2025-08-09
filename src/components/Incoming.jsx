@@ -24,8 +24,7 @@ export const Incoming = () => {
   }, []);
 
   return (
-    <div>
-      <div className="border-[1px] ml-2 rounded-xl border-t-borderFromWhite border-x-borderFromWhite bg-[#373737]/10 border-b-borderToYellow min-w-[100%] px-4 py-2">
+      <div className="border-[1px] flex flex-col mx-auto rounded-xl border-t-borderFromWhite border-x-borderFromWhite bg-[#373737]/10 border-b-borderToYellow w-[100%] px-4 py-2">
         <h1 className="font-bold text-xl font-[Geist] text-[#BBBBBB]">
           Incoming Requests
         </h1>
@@ -46,6 +45,5 @@ export const Incoming = () => {
           ...
         </div>
       </div>
-    </div>
   );
 };
