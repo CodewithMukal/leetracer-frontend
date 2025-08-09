@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FriendData } from "./FriendData";
+import {useNavigate} from "react-router"
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -8,6 +9,7 @@ const baseUrl =
 
 export const Manage = () => {
   const [data, setData] = useState();
+  const navigate = useNavigate()
   useEffect(() => {
     const getFriends = async () => {
       const response = await fetch(`${baseUrl}/friends/getFriends`, {
@@ -31,6 +33,17 @@ export const Manage = () => {
                     <FriendData UID={d}/>
                 </div>
             ))}
+            {
+               data && data.friends.length === 0 && 
+              (
+                <div className="font-[Geist] font-medium flex-col flex justify-center items-center">
+                  <p>No friends right now, find them?</p>
+                  <button onClick={()=> navigate("/search")} className="bg-[#614900] my-2 px-5 py-2 rounded-full hover:opacity-70 transition-opacity">
+                    Search
+                  </button>
+                </div>
+              )
+            }
         </div>
       </div>
     </div>

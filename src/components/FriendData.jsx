@@ -62,14 +62,12 @@ export const FriendData = (props) => {
             />
             <p className="font-semibold">{data.fullName}</p>
           </div>
-          <div className="flex justify-center items-center gap-6">
+          <div
+            className="flex justify-center items-center gap-6"
+          >
             <p>@{data.leetcodeID}</p>
             <div className="relative group">
-              <button
-                onFocus={() => setShow(true)}
-                onBlur={()=> setShow(false)}
-                className="w-10 h-10 flex justify-center items-center rounded-full hover:bg-white/10 cursor-pointer"
-              >
+              <button onClick={()=> setShow(!show)} className={`w-10 h-10 flex justify-center items-center rounded-full hover:bg-white/10 cursor-pointer transition-all ${show ? "rotate-90" : ""}`}>
                 <img src={dots} alt="" />
               </button>
               {show && (
