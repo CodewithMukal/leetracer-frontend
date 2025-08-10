@@ -12,8 +12,8 @@ import lead1 from "./assets/lead1.svg";
 import lead2 from "./assets/lead2.svg";
 import lead3 from "./assets/lead3.svg";
 import friends from "./assets/friends.svg";
-import ellipse1 from './assets/ellipse1.svg'
-import ellipse2 from './assets/ellipse2.svg'
+import ellipse1 from "./assets/ellipse1.svg";
+import ellipse2 from "./assets/ellipse2.svg";
 import getstarted from "./assets/getstarted.svg";
 import { useNavigate } from "react-router";
 
@@ -24,12 +24,13 @@ const baseUrl =
 
 export const Home = () => {
   const navigate = useNavigate();
-  const [email,setEmail] = useState("");
-  
+  const [email, setEmail] = useState("");
+
+  const [loggedIn, setLogin] = useState(false);
 
   return (
     <div className="relative max-w-[96%] mx-auto">
-      <Navbar />
+      <Navbar setLogin={setLogin}/>
       <div className="flex justify-center left-[50%] -translate-x-[50%] absolute items-center">
         <div className="w-[50vw] tubelight animate-tube rotate-180"></div>
       </div>
@@ -41,19 +42,39 @@ export const Home = () => {
           AI-powered progress analysis for better performance along with
           graph’s, leaderboard’s and much more...
         </p>
-        <div className="font-[Inter] flex-col-reverse w-full md:flex-row-reverse justify-center items-center md:gap-20 gap-6 flex">
-          <div className="bg-gradient-to-bl graySpin from-borderFromWhite to-borderToWhite w-[90%] md:w-fit rounded-full p-[1px]">
-            <button onClick={()=>navigate("/login")} className="bg-[#151515] w-[99%] hover:bg-[#595959] px-8 py-2 rounded-full ">
-              Login
-            </button>
+        {!loggedIn ? (
+          <div className="font-[Inter] flex-col-reverse w-full md:flex-row-reverse justify-center items-center md:gap-20 gap-6 flex">
+            <div className="bg-gradient-to-bl graySpin from-borderFromWhite to-borderToWhite w-[90%] md:w-fit rounded-full p-[1px]">
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-[#151515] w-[99%] hover:bg-[#595959] px-8 py-2 rounded-full "
+              >
+                Login
+              </button>
+            </div>
+            <div className="bg-gradient-to-br from-[#996400] md:w-fit w-[90%] gradientSpin rounded-full to-[#986300]/50 flex justify-center items-center p-2">
+              <button
+                onClick={() => navigate("/signup")}
+                className="bg-gradient-to-b w-[99%] text-nowrap hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex"
+              >
+                <img src={arrow} alt="" />
+                <p>Get Started</p>
+              </button>
+            </div>
           </div>
-          <div className="bg-gradient-to-br from-[#996400] md:w-fit w-[90%] gradientSpin rounded-full to-[#986300]/50 flex justify-center items-center p-2">
-            <button onClick={()=>navigate("/signup")} className="bg-gradient-to-b w-[99%] text-nowrap hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex">
-              <img src={arrow} alt="" />
-              <p>Get Started</p>
-            </button>
+        ) : (
+          <div className="font-[Inter] flex-col-reverse w-full md:flex-row-reverse justify-center items-center md:gap-20 gap-6 flex">
+            <div className="bg-gradient-to-br from-[#996400] md:w-fit w-[90%] gradientSpin rounded-full to-[#986300]/50 flex justify-center items-center p-2">
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="bg-gradient-to-b w-[99%] text-nowrap hover:from-transparent hover:to-transparent transition-all rounded-full font-medium text-black justify-center items-center gap-4 px-6 py-2 from-[#D9D9D9] to-[#737373] flex"
+              >
+                <img src={arrow} alt="" />
+                <p>Dashboard</p>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="flex justify-center items-center relative">
         <img src={dash} alt="" />
@@ -130,7 +151,7 @@ export const Home = () => {
               <div className="whiteBorder flex max-w-[95%] w-fit">
                 <input
                   type="email"
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   placeholder="Enter your email"
                   className="text-lg bg-[#2B2A28] mx-auto max-w-[99%] px-10 py-[4px] focus:outline-0 font-[Geist] rounded-full"
@@ -138,7 +159,12 @@ export const Home = () => {
               </div>
               <div>
                 <div className="whiteBorder">
-                  <button onClick={()=>navigate(`/signup/${encodeURIComponent(email)}`)} className="bg-gradient-to-bl rounded-full px-4 py-1 text-lg font-[Geist] font-medium from-[#FFC75E] to-[#895900]">
+                  <button
+                    onClick={() =>
+                      navigate(`/signup/${encodeURIComponent(email)}`)
+                    }
+                    className="bg-gradient-to-bl rounded-full px-4 py-1 text-lg font-[Geist] font-medium from-[#FFC75E] to-[#895900]"
+                  >
                     Get Started
                   </button>
                 </div>

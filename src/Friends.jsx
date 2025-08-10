@@ -62,7 +62,6 @@ export const Friends = () => {
             Date.now() - stored.time < thirtyMinutes &&
             stored.user === data.leetcodeID
           ) {
-
             setData(stored.data);
             const submissionCalendar = stored.data.submissionCalendar;
             const today = new Date();
@@ -105,7 +104,7 @@ export const Friends = () => {
         <FriendStats />
         <div className="flex flex-col gap-5 mx-auto w-[600px] max-w-[99%]">
           <Incoming />
-          <Manage/>
+          <Manage />
         </div>
       </div>
     </div>

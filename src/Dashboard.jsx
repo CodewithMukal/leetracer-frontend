@@ -200,9 +200,9 @@ export const Dashboard = () => {
   }, [data]);
 
   return (
-    <div className="lg:px-28 px-4">
+    <div className="">
       {data ? <DashboardNav img={data.profile.userAvatar} user={data.username} /> : <DashboardNav />}
-      <div className="flex flex-col gap-8 lg:flex-row relative my-6 justify-between">
+      <div className="flex lg:px-28 px-4 flex-col gap-8 lg:flex-row relative my-6 justify-between">
         <div className="">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row justify-start items-center font-bold gap-2 font-[Geist] text-[32px]">
@@ -253,13 +253,13 @@ export const Dashboard = () => {
           )}
         </div>
       </div>
-      <div className="absolute top-0 left-0 -z-10">
+      <div className="absolute  top-0 left-0 -z-10">
         <img src={deco} alt="" />
       </div>
       <div className="absolute -bottom-80 right-0 rotate-180 -z-10">
         <img src={deco} alt="" />
       </div>
-      <div className="flex flex-col mt-12">
+      <div className="flex lg:px-28 px-4 flex-col mt-12">
         <h1 className="text-3xl font-[Inter] font-bold">Recent Submissions</h1>
         {
           data && 

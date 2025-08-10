@@ -13,7 +13,7 @@ const baseUrl =
     ? "https://leetracer-backend.onrender.com"
     : "http://localhost:8000";
 
-export const Navbar = () => {
+export const Navbar = (props) => {
   const navigate = useNavigate();
   const [loggedIn, setLogin] = useState(false);
 
@@ -26,6 +26,7 @@ export const Navbar = () => {
       const data = await response.json();
       if (data.loggedIn) {
         setLogin(true);
+        props.setLogin(true);
       }
     };
     getInfo();
@@ -157,7 +158,7 @@ export const DashboardNav = (props) => {
     <div className="flex justify-center items-center">
       <div className="w-[98%] py-6 flex justify-between items-center mx-auto">
         <div>
-          <button onClick={() => navigate("/")} className="cursor-pointer">
+          <button onClick={() => navigate("/dashboard")} className="cursor-pointer">
             <img src={logo} alt="" />
           </button>
         </div>
