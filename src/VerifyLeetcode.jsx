@@ -150,8 +150,7 @@ export const VerifyLeetcode = () => {
               </div>
               <p className="max-w-[280px] mt-2 text-xs font-[Geist] text-[#5E5E5E]">
                 After verifying a unique code will be generated above in the
-                format “leetracer-######”. Copy the code and paste it in your
-                leetcode description so we can verify you own the account.
+                format “leetracer-######”. Go to your Profile, click "Edit Profile", Edit the summary, Paste the code, save. Come back to the website and submit as it allows use to verify if you own the account.
               </p>
             </div>
           </div>
