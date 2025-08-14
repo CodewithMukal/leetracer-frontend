@@ -12,6 +12,9 @@ import { Results } from "./components/Results";
 import { Search } from "./Search";
 import { Notfound } from "./Notfound";
 import { FindAll } from "./FindAll";
+import { ChangePass } from "./ChangePass";
+import { ForgotPass } from "./ForgotPass";
+import { Reset } from "./Reset";
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
           <Route path="/friends" element={<Friends/>} />
           <Route path="/search/:id" element={<Search/>} />
           <Route path="/search" element={<FindAll/>} />
+          <Route path="/change-password" element={<ChangePass/>} />
+          <Route path="/forgot-password" element={<ForgotPass/>} />
+          <Route path="/reset-password/:token" element={<Reset/>} />
           <Route path="*" element={<Notfound/>} />
         </Routes>
       </BrowserRouter>

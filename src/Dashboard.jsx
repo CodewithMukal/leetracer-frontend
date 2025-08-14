@@ -1,12 +1,10 @@
-import React, { cache, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
+import React, {  useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { DashboardNav } from "./components/Navbar";
 import { UserInfo } from "./components/UserInfo";
 import deco from "./assets/deco.svg";
 import { Dailychallenge } from "./components/Dailychallenge";
 import { AIRecommendation } from "./components/AIRecommendation";
-import { GoogleGenAI } from "@google/genai";
-import { Logout } from "./components/Logout";
 import { RecentSub } from "./components/RecentSub";
 
 const baseUrl =
@@ -23,7 +21,7 @@ export const Dashboard = () => {
   const [latestSubmission, setSubmission] = useState();
   const [today, setToday] = useState();
   const [airesponse, setAiresponse] = useState();
-
+  const dashboard = useRef();
   useEffect(() => {
     const getInfo = async () => {
       const response = await fetch(`${baseUrl}/auth/info`, {
@@ -100,7 +98,6 @@ export const Dashboard = () => {
             Date.now() - stored.time < thirtyMinutes &&
             stored.user === data.leetcodeID
           ) {
-
             setData(stored.data);
             const submissionCalendar = stored.data.submissionCalendar;
             const today = new Date();
@@ -164,13 +161,17 @@ export const Dashboard = () => {
           const timeDiff = Date.now() - parsed.time;
           const sixHours = 6 * 60 * 60 * 1000;
 
-          if (timeDiff > sixHours || parsed.username!==data.username) {
+          if (timeDiff > sixHours || parsed.username !== data.username) {
             (async () => {
               const response = await generateResponse(data);
               setAiresponse(response);
               localStorage.setItem(
                 "airesponse",
-                JSON.stringify({ airesponse: response, time: Date.now(), username: data.username })
+                JSON.stringify({
+                  airesponse: response,
+                  time: Date.now(),
+                  username: data.username,
+                })
               );
             })();
           } else {
@@ -182,7 +183,11 @@ export const Dashboard = () => {
             setAiresponse(response);
             localStorage.setItem(
               "airesponse",
-              JSON.stringify({ airesponse: response, time: Date.now(), username: data.username })
+              JSON.stringify({
+                airesponse: response,
+                time: Date.now(),
+                username: data.username,
+              })
             );
           })();
         }
@@ -192,16 +197,24 @@ export const Dashboard = () => {
           setAiresponse(response);
           localStorage.setItem(
             "airesponse",
-            JSON.stringify({ airesponse: response, time: Date.now(), username: data.username })
+            JSON.stringify({
+              airesponse: response,
+              time: Date.now(),
+              username: data.username,
+            })
           );
         })();
       }
     }
   }, [data]);
-
+  
   return (
     <div className="">
-      {data ? <DashboardNav img={data.profile.userAvatar} user={data.username} /> : <DashboardNav />}
+      {data ? (
+        <DashboardNav img={data.profile.userAvatar} user={data.username} />
+      ) : (
+        <DashboardNav />
+      )}
       <div className="flex lg:px-28 px-4 flex-col gap-8 lg:flex-row relative my-6 justify-between">
         <div className="">
           <div className="flex flex-col gap-8">
@@ -214,22 +227,24 @@ export const Dashboard = () => {
               )}
             </div>
             {data ? (
-              <UserInfo
-                total={data.totalQuestions}
-                totalComp={data.totalSolved}
-                easyComp={data.easySolved}
-                easy={data.totalEasy}
-                med={data.totalMedium}
-                medComp={data.mediumSolved}
-                hard={data.totalHard}
-                hardComp={data.hardSolved}
-                username={data.username}
-                link={"https://leetcode.com/u/" + data.username}
-                acceptanceRate={acceptanceRate}
-                rank={data.ranking}
-                latestSubmission={latestSubmission}
-                submissionToday={today}
-              />
+              <div ref={dashboard}>
+                <UserInfo
+                  total={data.totalQuestions}
+                  totalComp={data.totalSolved}
+                  easyComp={data.easySolved}
+                  easy={data.totalEasy}
+                  med={data.totalMedium}
+                  medComp={data.mediumSolved}
+                  hard={data.totalHard}
+                  hardComp={data.hardSolved}
+                  username={data.username}
+                  link={"https://leetcode.com/u/" + data.username}
+                  acceptanceRate={acceptanceRate}
+                  rank={data.ranking}
+                  latestSubmission={latestSubmission}
+                  submissionToday={today}
+                />
+              </div>
             ) : (
               <UserInfo />
             )}
@@ -261,12 +276,7 @@ export const Dashboard = () => {
       </div>
       <div className="flex lg:px-28 px-4 flex-col mt-12">
         <h1 className="text-3xl font-[Inter] font-bold">Recent Submissions</h1>
-        {
-          data && 
-          (
-            <RecentSub submissions={data.recentSubmissions}/>
-          )
-        }
+        {data && <RecentSub submissions={data.recentSubmissions} />}
       </div>
     </div>
   );

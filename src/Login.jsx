@@ -154,7 +154,7 @@ export const Login = () => {
             />
             <p className="text-sm font-medium">Remember Me</p>
           </div>
-          <button className="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#51CBFF] to-[#317A99] cursor-pointer hover:opacity-75">
+          <button onClick={()=>navigate("/forgot-password")} className="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#51CBFF] to-[#317A99] cursor-pointer hover:opacity-75">
             Forgot Password?
           </button>
         </div>

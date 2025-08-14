@@ -252,7 +252,7 @@ export const Profile = () => {
                   )}
                 </div>
               )}
-              <button className="bg-[#895900] hover:opacity-50 transition-opacity font-bold px-2 py-1 rounded-full text-white">
+              <button onClick={()=> navigate("/change-password")} className="bg-[#895900] hover:opacity-50 transition-opacity font-bold px-2 py-1 rounded-full text-white">
                 Change Password
               </button>
             </div>

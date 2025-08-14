@@ -3,12 +3,16 @@ import leetcode from "../assets/leetcode.svg";
 import { PieChart } from "react-minimal-pie-chart";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import download from "../assets/download.svg"
 
 export const UserInfo = (props) => {
   return (
     <div className="border py-3 flex flex-col gap-14 px-4 border-borderFromWhite bg-[#373737]/10    backdrop-blur-[100px] mx-auto rounded-xl w-[98%]">
       <div className="flex justify-between items-center">
-        <h1 className="font-bold lg:text-xl">Progress Report</h1>
+        <div className="flex gap-2 justify-center items-center">
+          <h1 className="font-bold lg:text-xl">Progress Report</h1>
+          <button onClick={props.download}><img className="w-6 h-6 hover:scale-110 hover:opacity-60 transition-all" src={download} alt="" /></button>
+        </div>
         <a
           href={props.link}
           target="_blank"
