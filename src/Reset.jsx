@@ -16,10 +16,10 @@ const baseUrl =
 
 export const Reset = () => {
   const [passwordStrength, setPasswordStrength] = useState("");
-  const {token} = useParams();
+  const { token } = useParams();
   const [newPass, setNew] = useState("");
-  const [showPass2,setShow2] = useState(false);
-  const [showPass3,setShow3] = useState(false);
+  const [showPass2, setShow2] = useState(false);
+  const [showPass3, setShow3] = useState(false);
   const [confPass, setConf] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -64,45 +64,38 @@ export const Reset = () => {
   };
 
   const handleChange = async () => {
-    console.log(token)
-    if(!newPass || !confPass)
-        {
-            toast.error("Enter all the fields!")
-            return;
-        }
-    if(passwordStrength!=="strong")
-        {
-            toast.error("Enter strong password!")
-            return;
-        }
-    if(newPass!==confPass)
-        {
-            toast.error("Enter same passwords!")
-            return;
-        }
-    const body = {token,newPass};
-    const response = await fetch(`${baseUrl}/auth/reset-password`,
-        {
-            method:"POST",
-            headers:
-            {
-                "Content-Type":"application/json"
-            },
-            credentials:"include",
-            body: JSON.stringify(body)
-        })
+    setLoading(true);
+    if (!newPass || !confPass) {
+      toast.error("Enter all the fields!");
+      return;
+    }
+    if (passwordStrength !== "strong") {
+      toast.error("Enter strong password!");
+      return;
+    }
+    if (newPass !== confPass) {
+      toast.error("Enter same passwords!");
+      return;
+    }
+    const body = { token, newPass };
+    const response = await fetch(`${baseUrl}/auth/reset-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
     const data = await response.json();
 
-    if(data.status === "success")
-        {
-            toast.success("Password Reset Successfully!")
-            navigate('/login')
-        }
-    else
-    {
-        toast.error(`Error ${data.message}`)
+    if (data.status === "success") {
+      toast.success("Password Reset Successfully!");
+      setLoading(false);
+      navigate("/login");
+    } else {
+      setLoading(false);
+      toast.error(`Error ${data.message}`);
     }
-
   };
   if (!token) {
     navigate("/");
