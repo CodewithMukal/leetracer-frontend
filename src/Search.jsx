@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { Stats } from "./components/Stats";
 import { DashboardNav } from "./components/Navbar";
 import { toast, ToastContainer } from "react-toastify";
+import Spinner from "./components/Spinner";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -11,6 +12,8 @@ const baseUrl =
 
 export const Search = () => {
   const params = useParams();
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState();
   const [username, setLeetcodeID] = useState("");
@@ -94,7 +97,6 @@ export const Search = () => {
             Date.now() - stored.time < thirtyMinutes &&
             stored.user === data.leetcodeID
           ) {
-
             setData(stored.data);
             const submissionCalendar = stored.data.submissionCalendar;
             const today = new Date();
@@ -136,43 +138,54 @@ export const Search = () => {
 
     getInfo();
   }, []);
-  const handleSend = async ()=> 
-    {
-        const body = {UID: params.id}
-        const response = await fetch(`${baseUrl}/friends/sendRequest`,{
-            method:"POST",
-            credentials:"include",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify(body)
-        })
-        const data = await response.json();
-        if(data.status==="success")
-            {
-                toast.success("Request Sent!")
-            }
-        else
-        {
-            toast.error(data.message)
-        }
+  const handleSend = async () => {
+    setLoading(true);
+    const body = { UID: params.id };
+    const response = await fetch(`${baseUrl}/friends/sendRequest`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    if (data.status === "success") {
+      toast.success("Request Sent!");
+      setLoading(false);
+    } else {
+      setLoading(true);
+      toast.error(data.message);
     }
+  };
   return (
     <div>
-        <ToastContainer/>
-      {
-        data ? (
-            <DashboardNav img={data.profile.userAvatar}/>
-        )
-        :
-        (
-            <DashboardNav/>
-        )
-      }
-      <Stats UID={params.id} />
-      <div className="flex justify-center items-center mt-6">
-        <button onClick={handleSend} className="border-[1px] text-green-500 text-xl hover:scale-105 transition-all hover:bg-white/20 hover:font-bold font-medium px-2 py-1 rounded">Send Request</button>
-      </div>
+      <ToastContainer />
+      {data ? <DashboardNav img={data.profile.userAvatar} /> : <DashboardNav />}
+      <Stats setShow={setShow} UID={params.id} />
+      {show && (
+        <div className="flex justify-center items-center mt-6">
+          {
+            !loading ? 
+            (
+              <button
+            onClick={handleSend}
+            className="border-[1px] text-green-500 text-xl hover:scale-105 transition-all hover:bg-white/20 hover:font-bold font-medium px-2 py-1 rounded"
+          >
+            Send Request
+          </button>
+            )
+            :
+            (
+              <button
+            className="border-[1px] opacity-50 flex gap-1 justify-center items-center text-green-500 text-xl transition-all font-medium px-2 py-1 rounded"
+          >
+            Sending... <Spinner/>
+          </button>
+            )
+          }
+        </div>
+      )}
     </div>
   );
 };

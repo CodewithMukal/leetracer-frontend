@@ -52,6 +52,7 @@ export const Stats = (props) => {
 
       setAcceptanceRate(acceptanceRate);
       setToday(subToday);
+      props.setShow(true);
       setSubmission(date.toLocaleDateString());
     };
     getData();
