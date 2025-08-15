@@ -161,6 +161,33 @@ body {
   opacity: 0.7;
   z-index: -1;
 }
+.gradientSpin2 {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* Important for glow blending */
+}
+
+.gradientSpin2::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 190%;
+  height: 190%;
+  background: linear-gradient(
+    120deg,
+    #ffd700,
+    #ff8c00,
+    #986300,
+    #ff8c00,
+    #ffd700
+  );
+  background-size: 200% 200%;
+  animation: gradSpin 4s linear infinite;
+  filter: blur(8px) brightness(1.5);
+  opacity: 0.7;
+  z-index: -1;
+}
 .graySpin {
   position: relative;
   overflow: hidden;

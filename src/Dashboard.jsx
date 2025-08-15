@@ -1,4 +1,4 @@
-import React, {  useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { DashboardNav } from "./components/Navbar";
 import { UserInfo } from "./components/UserInfo";
@@ -207,7 +207,7 @@ export const Dashboard = () => {
       }
     }
   }, [data]);
-  
+
   return (
     <div className="">
       {data ? (
@@ -227,7 +227,7 @@ export const Dashboard = () => {
               )}
             </div>
             {data ? (
-              <div ref={dashboard}>
+              <div ref={dashboard} className="flex justify-center items-center flex-col gap-2">
                 <UserInfo
                   total={data.totalQuestions}
                   totalComp={data.totalSolved}
@@ -244,6 +244,11 @@ export const Dashboard = () => {
                   latestSubmission={latestSubmission}
                   submissionToday={today}
                 />
+                <a href="https://leetcode.com/problemset" target="_blank" className="bg-gradient-to-br gradientSpin2 w-fit p-[1px] rounded-full">
+                  <button className="font-[Inter] hover:bg-[#ffd044bb] hover:text-[#333333] bg-[#12100E] px-3 py-1 rounded-full font-bold">
+                    Let's Practice {`->`}
+                  </button>
+                </a>
               </div>
             ) : (
               <UserInfo />
