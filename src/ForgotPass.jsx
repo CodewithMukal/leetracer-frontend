@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navbar4 } from "./components/Navbar";
-import eyeopen from "./assets/eyeopen.svg";
-import eyeclose from "./assets/eyeclose.svg";
 import lower from "./assets/lower.svg";
-import checkBoxEmpty from "./assets/checkBoxEmpty.svg";
-import checkBoxFilled from "./assets/checkBoxFilled.svg";
 import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "./components/Spinner";

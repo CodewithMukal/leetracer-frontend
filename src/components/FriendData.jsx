@@ -43,6 +43,7 @@ export const FriendData = (props) => {
     const d = await response.json();
     if (d.status === "success") {
       setRemoving(false);
+      window.location.reload();
       toast.success(`Removed ${data.fullName} from Friends!`);
     } else {
       setRemoving(false);
@@ -53,14 +54,14 @@ export const FriendData = (props) => {
     <div className="flex flex-col gap-2">
       <ToastContainer />
       {data ? (
-        <div className="flex justify-between my-4 items-center font-[Geist]">
+        <div className="flex text-[14px] justify-between my-4 items-center font-[Geist]">
           <div className="flex w-10 h-10 items-center gap-4">
             <img
               className="rounded-full"
               src={data.data.data.profile.userAvatar}
               alt=""
             />
-            <p className="font-semibold">{data.fullName}</p>
+            <p className="font-semibold text-nowrap">{data.fullName}</p>
           </div>
           <div
             className="flex justify-center items-center gap-6"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import Spinner from "./Spinner";
 
 const baseUrl =
   import.meta.env.VITE_ENV === "production"
@@ -8,6 +9,7 @@ const baseUrl =
 
 export const Request = (props) => {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getInfo = async (UID) => {
       const body = { UID };
@@ -26,6 +28,7 @@ export const Request = (props) => {
     getInfo(props.UID);
   }, []);
   const addFriend = async () => {
+    setLoading(true);
     const response = await fetch(`${baseUrl}/friends/acceptReq`, {
       method: "POST",
       credentials: "include",
@@ -37,11 +40,14 @@ export const Request = (props) => {
     const data = await response.json();
     if (data.status === "success") {
       toast.success("Added to Friends");
+      window.location.reload()
     } else {
+      setLoading(false);
       toast.error(data.message);
     }
   };
   const reject = async () => {
+    setLoading(true);
     const body = { UID: props.UID };
     const response = await fetch(`${baseUrl}/friends/rejectReq`, {
       method: "POST",
@@ -54,13 +60,15 @@ export const Request = (props) => {
     const data = await response.json();
     if (data.status === "success") {
       toast.success("Removed Request");
+      window.location.reload()
     } else {
+      setLoading(false);
       toast.error(data.message);
     }
   };
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       {data ? (
         <div className="flex justify-between border-[1px] border-borderToWhite p-4 rounded hover:scale-101 transition-all items-center my-2">
           <div className="flex gap-2 justify-center items-center">
@@ -72,20 +80,26 @@ export const Request = (props) => {
             <h1 className="font-bold">{data.fullName}</h1>
             <p className="text-sm font-medium">@{data.leetcodeID}</p>
           </div>
-          <div className="font-[Geist] space-x-2 font-bold">
-            <button
-              onClick={() => addFriend()}
-              className="text-[#00B84D] hover:bg-[#00B84D] transition-colors hover:text-white border-[1px] px-[10px] py-[2px] rounded"
-            >
-              Add
-            </button>
-            <button
-              onClick={() => reject()}
-              className="text-[#E5070A] hover:bg-[#E5070A] transition-colors hover:text-white border-[1px] px-[10px] py-[2px] rounded"
-            >
-              Reject
-            </button>
-          </div>
+          {!loading ? (
+            <div className="font-[Geist] space-x-2 font-bold">
+              <button
+                onClick={() => addFriend()}
+                className="text-[#00B84D] hover:bg-[#00B84D] transition-colors hover:text-white border-[1px] px-[10px] py-[2px] rounded"
+              >
+                Add
+              </button>
+              <button
+                onClick={() => reject()}
+                className="text-[#E5070A] hover:bg-[#E5070A] transition-colors hover:text-white border-[1px] px-[10px] py-[2px] rounded"
+              >
+                Reject
+              </button>
+            </div>
+          ) : (
+            <div className="font-[Geist] space-x-2 font-bold">
+              <Spinner />
+            </div>
+          )}
         </div>
       ) : (
         <p>Loading..</p>

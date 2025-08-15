@@ -8,7 +8,7 @@ export const Results = (props) => {
       {props.results ? (
         props.results.slice(0, !props.all ? 6 : props.results.length).map((data, key) => (
           <div
-            className="border-y-[1px] group flex flex-col gap-4 text-[12px] border-white/20 py-2"
+            className="border-y-[1px] group flex flex-col gap-4 text-[11px] border-white/20 py-2"
             key={key}
           >
             <div
@@ -24,7 +24,7 @@ export const Results = (props) => {
         <div>Loading..</div>
       )}
       {props.results.length > 6 && !props.all && (
-        <div className="hover:bg-white/20">See more</div>
+        <div onClick={()=> navigate("/search")} className="hover:bg-white/20 cursor-pointer">See more</div>
       )}
     </div>
   );
