@@ -20,6 +20,7 @@ export const Dashboard = () => {
   const [acceptanceRate, setAcceptanceRate] = useState();
   const [latestSubmission, setSubmission] = useState();
   const [today, setToday] = useState();
+  const [completeDaily, setCompleteDaily] = useState(false);
   const [airesponse, setAiresponse] = useState();
   const dashboard = useRef();
   useEffect(() => {
@@ -205,9 +206,12 @@ export const Dashboard = () => {
           );
         })();
       }
+      if(data.recentSubmissions.some(obj=>obj.title===data.dailyChallenge.title))
+        {
+          setCompleteDaily(true);
+        }
     }
   }, [data]);
-
   return (
     <div className="">
       {data ? (
@@ -262,6 +266,7 @@ export const Dashboard = () => {
               questionLink={data.dailyChallenge.link}
               questionDiff={data.dailyChallenge.difficulty}
               questionTitle={data.dailyChallenge.title}
+              complete={completeDaily}
             />
           ) : (
             <Dailychallenge />
