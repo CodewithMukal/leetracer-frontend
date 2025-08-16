@@ -248,7 +248,7 @@ export const Dashboard = () => {
                   latestSubmission={latestSubmission}
                   submissionToday={today}
                 />
-                <a href="https://leetcode.com/problemset" target="_blank" className="bg-gradient-to-br gradientSpin2 w-fit p-[1px] rounded-full">
+                <a href="https://leetcode.com/problemset" target="_blank" className="bg-gradient-to-br border-[1px] border-white/20 gradientSpin2 w-fit p-[1px] rounded-full">
                   <button className="font-[Inter] hover:bg-[#ffd044bb] hover:text-[#333333] bg-[#12100E] px-3 py-1 rounded-full font-bold">
                     Let's Practice {`->`}
                   </button>
