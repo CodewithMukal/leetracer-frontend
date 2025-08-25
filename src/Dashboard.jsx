@@ -93,10 +93,10 @@ export const Dashboard = () => {
 
         if (cached) {
           const stored = JSON.parse(cached);
-          const thirtyMinutes = 30 * 60 * 1000;
+          const fiveMinutes = 5 * 60 * 1000;
 
           if (
-            Date.now() - stored.time < thirtyMinutes &&
+            Date.now() - stored.time < fiveMinutes &&
             stored.user === data.leetcodeID
           ) {
             setData(stored.data);
